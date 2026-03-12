@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">u 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Winnie Finds ✨ - Welcome" data-zh="Winnie Finds ✨ - 欢迎" data-ms="Winnie Finds ✨ - Selamat Datang">Winnie Finds ✨ - Welcome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Color Palette */
+        :root {
+    --header-bg: #FFB6C1;      /* Light Pink for header */
+    --accent-color: #FF69B4;   /* Hot Pink for accents */
+    --text-color: #5D4037;      /* Dark Brown for text (good contrast) */
+    --bg-color: #FFF5F6;        /* Very Light Pink for background */
+    --light-grey: #FDEEF4;      /* Pinkish-Grey for dividers */
+}
+
+        /* Basic Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 17px; /* Increased base font size */
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6; /* Improved line spacing for readability */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .profile-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Navigation Styles */
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--bg-color);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .header-icons a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .header-icons a:hover {
+            transform: scale(1.1);
+            color: var(--bg-color);
+        }
+
+        .header-icons a[title="Wishlist"].active {
+            color: #ff6b6b; /* Red color for active wishlist heart */
+        }
+
+        /* Language Selector Styles */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            background-color: var(--light-grey);
+            border-radius: 50px;
+            padding: 5px;
+            position: relative;
+        }
+
+        .language-selector button {
+            background-color: transparent;
+            border: none;
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            z-index: 1;
+        }
+
+        .language-selector button.active {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown .dropbtn {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none; /* Remove underline from the main link */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--light-grey);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--header-bg);
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* Main Content Styles */
+        main {
+
+        }
+
+        section {
+            min-height: 80vh;
+            padding: 2rem;
+            padding-top: 60px; /* Offset for sticky header */
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        #home {
+            height: 100vh; /* Make section fill the viewport height */
+            padding: 0; /* Remove padding to fill space behind header */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #home-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind the content */
+        }
+
+        #home-slideshow .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #home-slideshow .slide.active {
+            opacity: 0.4; /* Reduced opacity */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #home-slideshow .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Black overlay with 30% opacity */
+            z-index: 1;
+        }
+
+        #home h1 {
+            position: relative; /* Ensure text is on top of the overlay */
+            z-index: 2; /* Higher z-index than the overlay */
+            position: relative;
+            z-index: 1; /* Ensure text is on top of the slideshow */
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0; /* Start as invisible for animation */
+        }
+
+        h1, h2 {
+            color: var(--text-color);
+        }
+
+        .section-title {
+            text-align: center;
+            width: 100%;
+            margin-bottom: 2rem; /* Add some space below the title */
+        }
+
+        #about {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #about h2 {
+            font-size: 2.5rem; /* Larger font size for the heading */
+            text-align: center;
+            margin-bottom: 30px; /* Adds space below the heading */
+        }
+
+        #about p {
+            font-size: 1.5em; /* Further increased font size */
+            line-height: 1.7; /* Increased line spacing for readability */
+            max-width: 800px; /* Constrains width on large screens */
+            margin: 0 auto; /* Centers the text block */
+        }
+
+        /* Animated Text */
+        .animate-text {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Vertical Social Bar */
+        .social-bar {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background-color: var(--bg-color);
+            padding: 1rem 0.8rem;
+            border-radius: 10px 0 0 10px;
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+            z-index: 1001;
+        }
+
+        .social-bar a {
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        .social-bar a:hover {
+            color: var(--header-bg);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #F8F9FA;
+            color: var(--text-color);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--light-grey);
+            position: relative; /* Ensures z-index works */
+            z-index: 1;       /* Keeps the footer on top */
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--header-bg);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Image Preview Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {transform:scale(0)}
+            to {transform:scale(1)}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        /* Payment Modal Specific Styles */
+        .payment-modal-content {
+            background-color: var(--bg-color);
+            margin: auto;
+            padding: 20px;
+            border: 1px solid var(--light-grey);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation-name: zoom;
+            animation-duration: 0.4s;
+        }
+
+        .payment-total-summary {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.5rem; /* Reduced margin */
+            color: var(--text-color);
+        }
+
+        .payment-instructions {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .qr-code-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .qr-code-container img {
+            max-width: 250px; /* Reduced size for better display */
+            height: auto;
+            border: 1px solid var(--light-grey);
+            display: block; /* Center the image */
+            margin: 0 auto; /* Center the image */
+        }
+
+        .payment-confirmation-note {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .payment-btn {
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            border: 1px solid var(--light-grey);
+            background-color: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            font-weight: bold;
+        }
+
+        .payment-btn:hover {
+            background-color: var(--light-grey);
+        }
+
+        .payment-btn .fab,
+        .payment-btn .fas {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+
+        /* Credit Card Form Specific Styles */
+        .credit-card-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Increased gap for more space */
+        }
+
+        .form-group {
+            position: relative; /* Needed for floating labels */
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: transparent; /* For floating label to work */
+        }
+
+        /* Floating label effect */
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group select:focus + label,
+        .form-group select:valid + label { /* :valid is used for select */
+            top: 0;
+            left: 10px;
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            background-color: var(--bg-color);
+            padding: 0 5px;
+            transform: translateY(-50%);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        #pay-now-btn {
+            margin-top: 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #pay-now-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Side Panel for Wishlist/Cart */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -400px; /* Start off-screen */
+            width: 350px;
+            height: 100%;
+            background-color: var(--bg-color);
+            box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s ease-in-out;
+        }
+
+        .side-panel.open {
+            right: 0; /* Slide in */
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: var(--header-bg);
+            color: var(--text-color);
+        }
+
+        .panel-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .close-panel-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .panel-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .panel-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .confirm-purchase-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-purchase-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .panel-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .checkout-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .panel-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--light-grey);
+        }
+
+        .confirm-purchase-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-purchase-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .empty-list-msg {
+            text-align: center;
+            color: #888;
+            margin-top: 2rem;
+        }
+
+        .panel-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+        }
+
+        .panel-overlay.open {
+            display: block;
+        }
+
+        /* Panel Item Styles */
+        .panel-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-grey);
+        }
+
+        .panel-item:last-child {
+            border-bottom: none;
+        }
+
+        .panel-item-img {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .panel-item-details {
+            flex-grow: 1;
+        }
+
+        .panel-item-name {
+            margin: 0 0 5px 0;
+            font-size: 1em;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .panel-item-price {
+            margin: 0;
+            font-size: 1em;
+            color: #666;
+        }
+
+        .remove-item-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #aaa;
+            cursor: pointer;
+            padding: 0.5rem;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .remove-item-btn:hover {
+            color: var(--accent-color);
+        }
+
+        /* Toast Notification Styles */
+        #toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s, bottom 0.5s;
+        }
+
+        #toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            bottom: 50px;
+        }
+
+        /* Filter Buttons Styles */
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Product Grid Styles */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
+            gap: 3rem 2rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* 2 columns for tablets */
+        @media (min-width: 500px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 3 columns for desktops */
+        @media (min-width: 800px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* General Animation for elements on scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--light-grey);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            position: relative; /* Required for positioning the hover actions */
+            /* -- Animation Start -- */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            /* Aspect ratio for a tall, portrait shape (B) */
+            aspect-ratio: 3 / 4;
+            object-fit: cover; /* Fill the shape without distortion */
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-size: 1em; /* Reset to default */
+            font-weight: 600;
+            margin: 15px 0 5px;
+            color: #555;
+        }
+
+        .product-card .price {
+            margin-top: 0.25rem;
+            font-size: 1.1rem; /* Increased font size */
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .toggle-details-btn {
+            background: var(--light-grey);
+            color: var(--text-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-details-btn:hover {
+            background: #dcdcdc;
+        }
+
+        .product-details.collapsible {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding: 0 1rem;
+        }
+
+        .product-details.collapsible.active {
+            max-height: 200px; /* Adjust as needed */
+            padding: 0 1rem 1rem;
+        }
+
+        .product-details {
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .product-image-container {
+            position: relative;
+        }
+
+        .product-image-container .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            z-index: 2;
+        }
+
+        .product-image-container.clickable-gallery:hover .arrow {
+            display: block; /* Show on hover */
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none; /* Allow clicks to pass through the container */
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .product-actions a {
+            color: white;
+            font-size: 1.5rem; /* Icon size */
+            text-decoration: none;
+            transition: transform 0.2s ease;
+            pointer-events: auto; /* But the icons remain clickable */
+        }
+
+        .product-details p {
+            margin: 0.4rem 0;
+        }
+
+        .product-actions a:hover {
+    transform: scale(1.2);
+}
+
+.product-actions a[title="Add to Wishlist"].active {
+    color: #ff6b6b; /* Red color for active wishlist heart */
+    transform: scale(1.2);
+}
+
+.product-actions .cart-button.active {
+    color: #3498db !important; /* Blue color for active cart icon */
+    transform: scale(1.2);
+}
+
+/* -- Out of Stock Styles -- */
+.out-of-stock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.product-card.is-sold .out-of-stock-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.product-card.is-sold .product-actions {
+    pointer-events: none; /* Disable clicking on the action container */
+}
+
+.product-card.is-sold .product-actions a {
+    color: #bbb; /* Grey out the icons */
+    transform: none; /* Prevent hover effect */
+}
+
+
+/* -- Checkout Modal -- */
+.modal#checkout-modal .modal-content {
+    background-color: var(--bg-color);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid var(--light-grey);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation-name: zoom;
+    animation-duration: 0.4s;
+}
+
+.modal#checkout-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-grey);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.modal-body {
+    padding: 20px 0;
+}
+
+.checkout-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.checkout-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.modal-footer {
+    padding-top: 10px;
+    border-top: 1px solid var(--light-grey);
+    text-align: right;
+}
+
+#confirm-purchase-btn {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#confirm-purchase-btn:hover {
+    background-color: #c0392b;
+}
+
+/* -- Side Panel Footer -- */
+.panel-footer {
+    padding: 20px;
+    border-top: 1px solid var(--light-grey);
+    background-color: var(--bg-color);
+}
+
+#cart-total {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#checkout-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#checkout-btn:hover {
+    background-color: #c0392b;
+}
+
+        .product-actions a[title="Add to Wishlist"].active {
+            color: #ff6b6b; /* Red color for active wishlist heart */
+            transform: scale(1.2);
+        }
+
+        .product-actions .cart-button.active {
+            color: #3498db !important; /* Blue color for active cart icon */
+            transform: scale(1.2);
+        }
+
+/* -- How to Buy Section -- */
+#how-to-buy {
+    /* This becomes the white box */
+    max-width: 800px; /* Match the 'About Us' section width */
+    margin: 40px auto; /* Center it and give vertical space */
+    padding: 2em;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#how-to-buy h2 {
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+.how-to-buy-steps {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    /* max-width is no longer needed here, it will be constrained by the parent */
+    margin: 0 auto;
+}
+
+.step {
+    /* Remove the individual box styling */
+    text-align: center;
+    flex-basis: 250px;
+    flex-grow: 1;
+}
+
+.step {
+    max-width: 250px; /* Increased width */
+}
+
+.step .icon {
+    font-size: 3em; /* Made larger for readability */
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.step h3 {
+    font-size: 1.5em; /* Made larger for readability */
+    margin-bottom: 10px;
+}
+
+.step p {
+    font-size: 1.1em; /* Made larger for readability */
+    line-height: 1.6;
+    color: #666;
+}
+
+/* -- Responsive Design -- */
+@media (max-width: 768px) {
+    /* Adjust header for smaller screens */
+    header {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .logo-container {
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        font-size: 28px; /* Slightly smaller logo on mobile */
+    }
+
+    nav {
+        margin-bottom: 15px;
+    }
+
+    .header-icons {
+        position: static;
+        transform: none;
+    }
+
+    /* Make section titles smaller */
+    h2 {
+        font-size: 2em;
+    }
+
+    /* Adjust About Us section for mobile */
+    #about {
+        padding: 40px 20px;
+    }
+
+    #about p {
+        font-size: 1em; /* Slightly smaller for mobile */
+        max-width: 100%;
+    }
+
+    /* Adjust How to Buy section for mobile */
+    #how-to-buy h2 {
+        font-size: 2em; /* Match other h2s */
+    }
+
+    .step {
+        max-width: 220px; /* Make steps a bit smaller on mobile */
+    }
+
+    .step .icon {
+        font-size: 3em; /* Reduce icon size */
+    }
+
+    .step h3 {
+        font-size: 1.5em; /* Reduce title size */
+    }
+
+    .step p {
+        font-size: 1em; /* Reduce text size */
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 20px;
+    }
+
+    .social-bar {
+        top: auto;
+        transform: none;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .social-bar a {
+        width: 40px;
+        height: 40px;
+    }
+}
+/* Footer Styles */
+.site-footer {
+    background-color: var(--dark-blue);
+    color: var(--light-grey);
+    padding: 50px 0 0;
+    font-size: 15px;
+    border-top: 4px solid var(--gold);
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 220px;
+    margin: 0 15px 40px;
+}
+
+.footer-column h4 {
+    color: #fff;
+    margin-bottom: 25px;
+    font-size: 18px;
+    position: relative;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-column h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 45px;
+    height: 2px;
+    background-color: var(--gold);
+}
+
+.footer-column .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+
+.footer-column p, .footer-column li {
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: #ccc;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.footer-column .footer-links ul li a:hover {
+    color: #fff;
+    padding-left: 5px;
+}
+
+.footer-contact ul li {
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact ul li i {
+    margin-right: 12px;
+    color: var(--gold);
+    font-size: 16px;
+    width: 20px; /* Align icons */
+}
+
+.footer-social ul {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social ul li a {
+    font-size: 22px;
+    color: var(--light-grey);
+    transition: color 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+.footer-social ul li a:hover {
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px; /* Reduced space to unify the footer */
+    padding: 20px 0;
+    border-top: 1px solid #556278;
+    font-size: 14px;
+    color: #aaa;
+}
+</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <!-- Social Media Bar -->
+    <div class="social-bar">
+        <a href="https://wa.me/60172878786?text=Hi%20Winnie%20Finds!%20%E2%9C%A8%20I%20saw%20your%20website%20and%20have%20a%20question%20about%20your%20collection." target="_blank" rel="noopener noreferrer" title="WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.586-1.456l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01s-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/_.jinnnnn/" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266.058 1.644.07 4.85.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/1AgZetELPm/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" title="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg>
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header>
+            <div class="logo-container">
+                <img id="profilePhoto" src="images/SHOP SECOND HAND.jpg" alt="Profile Photo" class="profile-photo">
+                <div class="logo" data-en="Winnie Finds" data-zh="Winnie Finds" data-ms="Winnie Finds">Winnie Finds <i class="far fa-gem"></i></div>
+            </div>
+        <nav>
+            <a href="#home" data-en="Home" data-zh="首页" data-ms="Laman Utama">Home</a>
+            <a href="#about" data-en="About" data-zh="关于" data-ms="Tentang Kami">About</a>
+            <div class="dropdown">
+                <a href="#services" class="dropbtn" data-en="Featured Finds" data-zh="精选商品" data-ms="Koleksi Pilihan">Featured Finds &#9662;</a>
+                <div id="myDropdown" class="dropdown-content">
+                <a href="#" class="dropdown-filter" data-filter="all" data-en="All" data-zh="全部" data-ms="Semua">All</a>
+                <a href="#" class="dropdown-filter" data-filter="cheongsam" data-en="Cheongsam" data-zh="旗袍" data-ms="Cheongsam">Cheongsam</a>
+                <a href="#" class="dropdown-filter" data-filter="tops" data-en="Tops" data-zh="上衣" data-ms="Baju Atasan">Tops</a>
+                <a href="#" class="dropdown-filter" data-filter="bottoms" data-en="Bottoms" data-zh="下装" data-ms="Seluar">Bottoms</a>
+                <a href="#" class="dropdown-filter" data-filter="sport" data-en="Sport" data-zh="运动" data-ms="Sukan">Sport</a>
+            </div>
+            </div>
+
+            <div class="header-icons">
+                <a href="#" title="Wishlist">&#x2661;</a>
+                <a href="#" title="Cart">&#x1F6D2;</a>
+            </div>
+            <div class="language-selector">
+                <button data-lang="en" onclick="changeLanguage('en')">EN</button>
+                <button data-lang="zh" onclick="changeLanguage('zh')">中文</button>
+                <button data-lang="ms" onclick="changeLanguage('ms')">BM</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section id="home">
+            <div id="home-slideshow">
+            <div class="slide" style="background-image: url('images/background1.jpg');"></div>
+            <div class="slide" style="background-image: url('images/background 2.jpg');"></div>
+        </div>
+        <h1 class="animate-text" data-en="Where Pre-Loved Becomes Re-Loved ✨" data-zh="让二手宝贝重获新生。✨" data-ms="Di Mana Barangan Terpakai Kembali Disayangi. ✨">Where Pre-Loved Becomes Re-Loved. ✨</h1>
+        </section>
+        <section id="about">
+            <h2 class="animate-on-scroll section-title" data-en="About Us" data-zh="关于我们" data-ms="Tentang Kami">About Us</h2>
+            <p class="animate-on-scroll" data-en="Welcome to Winnie Finds! We believe that looking good and doing good should go hand-in-hand. Our passion is finding beautiful, pre-loved clothes and giving them a second chance to shine. Every item in our collection is carefully hand-picked, meaning you're not just discovering a unique piece for your wardrobe—you're joining a movement. A movement to reduce fashion waste, celebrate sustainable style, and build a more conscious future, one gorgeous outfit at a time." data-zh="欢迎来到 Winnie Finds！我们相信，好看与行善应该齐头并进。我们的热情在于寻找美丽的二手衣物，并赋予它们第二次生命。我们系列中的每一件商品都经过精心挑选，这意味着您不仅在为您的衣橱发现一件独特的单品——您还能发现更多价值。一场旨在减少时尚浪费、颂扬可持续风格、一次一件华丽的服装，共创一个更有意识的未来的运动。" data-ms="Selamat datang ke Winnie Finds! Kami percaya bahawa kelihatan hebat dan berbuat baik harus seiring. Semangat kami adalah mencari pakaian terpakai yang cantik dan memberikannya peluang kedua untuk bersinar. Setiap item dalam koleksi kami dipilih dengan teliti, bermakna anda bukan sahaja menemui item unik untuk almari pakaian anda—anda sedang menyertai sebuah pergerakan. Sebuah pergerakan untuk mengurangkan sisa fesyen, meraikan gaya lestari, dan membina masa depan yang lebih sedar, satu persalinan indah pada satu masa.">Welcome to Winnie Finds! We believe that looking good and doing good should go hand-in-hand. Our passion is finding beautiful, pre-loved clothes and giving them a second chance to shine. Every item in our collection is carefully hand-picked, meaning you're not just discovering a unique piece for your wardrobe—you're joining a movement. A movement to reduce fashion waste, celebrate sustainable style, and build a more conscious future, one gorgeous outfit at a time.</p>
+        </section>
+        <section id="how-to-buy">
+            <h2 class="animate-on-scroll"<h2 data-en="Make It Yours 🎀" data-zh="选你所爱 🎀" data-ms="Jadikannya Milik Anda 🎀">Make It Yours 🎀</h2>
+            <div class="how-to-buy-steps">
+                <div class="step animate-on-scroll">
+                    <div class="icon"><i class="fas fa-search"></i></div>
+                    <h3 data-en="1. Explore & Choose" data-zh="1. 探索与选择" data-ms="1. Teroka & Pilih">1. Explore & Choose</h3>
+                    <p data-en="Find a unique item you love and add it to your bag." data-zh="找到您喜欢的独特商品，并将其加入您的购物袋。" data-ms="Cari item unik yang anda suka dan tambahkannya ke dalam beg anda.">Find a unique item you love and add it to your bag.</p>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="icon"><i class="fas fa-shopping-bag"></i></div>
+                    <h3 data-en="2. Review Your Bag" data-zh="2. 查看购物袋" data-ms="2. Semak Beg Anda">2. Review Your Bag</h3>
+                    <p data-en="Click the bag icon to review your items and proceed to checkout." data-zh="点击购物袋图标，查看您的商品并进行结算。" data-ms="Klik ikon beg untuk menyemak item anda dan teruskan ke pembayaran.">Click the bag icon to review your items and proceed to checkout.</p>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="icon"><i class="fas fa-credit-card"></i></div>
+                    <h3 data-en="3. Confirm Your Order" data-zh="3. 确认订单" data-ms="3. Sahkan Pesanan Anda">3. Confirm Your Order</h3>
+                    <p data-en="In the checkout pop-up, confirm your purchase to make it official." data-zh="在结账弹出窗口中，确认您的购买，完成订单。" data-ms="Dalam tetingkap checkout, sahkan pembelian anda untuk menjadikannya rasmi.">In the checkout pop-up, confirm your purchase to make it official.</p>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                    <h3 data-en="4. It's Yours!" data-zh="4. 成功购买！" data-ms="4. Milik Anda!">4. It's Yours!</h3>
+                    <p data-en="The one-of-a-kind item is now yours and will be marked as sold." data-zh="这件独一无二的商品现在属于您，并将被标记为已售罄。" data-ms="Item unik ini kini milik anda dan akan ditandakan sebagai telah dijual.">The one-of-a-kind item is now yours and will be marked as sold.</p>
+                </div>
+            </div>
+        </section>
+        <section id="services">
+            <h2 class="animate-on-scroll section-title" data-en="Featured Finds" data-zh="精选商品" data-ms="Koleksi Pilihan">Featured Finds</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all" data-en="All" data-zh="全部" data-ms="Semua">All</button>
+                <button class="filter-btn" data-filter="cheongsam" data-en="Cheongsam" data-zh="旗袍" data-ms="Cheongsam">Cheongsam</button>
+                <button class="filter-btn" data-filter="tops" data-en="Tops" data-zh="上衣" data-ms="Baju Atasan">Tops</button>
+                <button class="filter-btn" data-filter="bottoms" data-en="Bottoms" data-zh="下装" data-ms="Seluar">Bottoms</button>
+                <button class="filter-btn" data-filter="sport" data-en="Sport" data-zh="运动" data-ms="Sukan">Sport</button>
+            </div>
+            <div class="product-grid">
+                <!-- Product Card 1 -->
+                <div class="product-card animate-on-scroll" data-product-id="P001" data-category="cheongsam">
+                    <div class="product-image-container">
+                        <div class="out-of-stock-overlay" data-en="Out of Stock" data-zh="已售罄" data-ms="Telah Dijual">Out of Stock</div>
+                        <img src="images/makiyo-cheongsam.jpg" alt="Makiyo Cheongsam">
+                        <div class="product-actions">
+                            <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                        </div>
+                    </div>
+                    <h3 data-en="MAKIYO Cheongsam" data-zh="MALIYO 连身旗袍" data-ms="Cheongsam MAKIYO">MAKIYO Cheongsam</h3>
+                    <p class="price">RM100</p>
+                    <button class="toggle-details-btn" data-en-more="View More" data-zh-more="查看更多" data-ms-more="Lihat Lagi" data-en-less="View Less" data-zh-less="收起" data-ms-less="Lihat Kurang">View More</button>
+                    <div class="product-details collapsible">
+                        <p><strong data-en="Size" data-zh="尺码" data-ms="Saiz">Size</strong>: L</p>
+                        <p><strong data-en="Length" data-zh="裙长" data-ms="Panjang">Length</strong>: 83cm</p>
+                        <p><strong data-en="Bust" data-zh="胸围" data-ms="Dada">Bust</strong>: 88cm</p>
+                        <p><strong data-en="Shoulder" data-zh="肩宽" data-ms="Bahu">Shoulder</strong>: 33cm</p>
+                        <p><strong data-en="Waist" data-zh="腰围" data-ms="Pinggang">Waist</strong>: 72cm</p>
+                        <p><strong data-en="Sleeve" data-zh="袖子" data-ms="Lengan">Sleeve</strong>: 22cm</p>
+                        <p><strong data-en="Hips" data-zh="臀围" data-ms="Pinggul">Hips</strong>: 92cm</p>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card animate-on-scroll" data-product-id="P002" data-category="tops">
+                    <div class="product-image-container">
+                        <div class="out-of-stock-overlay" data-en="Out of Stock" data-zh="已售罄" data-ms="Telah Dijual">Out of Stock</div>
+                        <img src="images/小香风毛衣外套2.jpeg" alt="小香风毛衣外套">
+                        <div class="product-actions">
+                            <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                        </div>
+                    </div>
+                    <h3 data-en="Xiaoxiangfeng Sweater Jacket" data-zh="小香风毛衣外套" data-ms="Jaket Sweater Xiaoxiangfeng">小香风毛衣外套</h3>
+                    <p class="price">RM50</p>
+                    <button class="toggle-details-btn" data-en-more="View More" data-zh-more="查看更多" data-ms-more="Lihat Lagi" data-en-less="View Less" data-zh-less="收起" data-ms-less="Lihat Kurang">View More</button>
+                    <div class="product-details collapsible">
+                        <p><strong data-en="Size" data-zh="尺码" data-ms="Saiz">Size</strong>: N/A</p>
+                        <p><strong data-en="Length" data-zh="裙长" data-ms="Panjang">Length</strong>: N/A</p>
+                        <p><strong data-en="Bust" data-zh="胸围" data-ms="Dada">Bust</strong>: N/A</p>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card animate-on-scroll" data-product-id="P003" data-category="dress">
+                    <div class="product-image-container">
+                        <div class="out-of-stock-overlay" data-en="Out of Stock" data-zh="已售罄" data-ms="Telah Dijual">Out of Stock</div>
+                        <img src="images/SHEIN 蓝色L斜露肩连衣裙.jpeg" alt="SHEIN 蓝色L斜露肩连衣裙">
+                        <div class="product-actions">
+                            <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                        </div>
+                    </div>
+                    <h3 data-en="SHEIN Blue Off-Shoulder Dress" data-zh="SHEIN 蓝色L斜露肩连衣裙" data-ms="Gaun Bahu Terbuka Biru SHEIN">SHEIN 蓝色L斜露肩连衣裙</h3>
+                    <p class="price">RM45</p>
+                    <button class="toggle-details-btn" data-en-more="View More" data-zh-more="查看更多" data-ms-more="Lihat Lagi" data-en-less="View Less" data-zh-less="收起" data-ms-less="Lihat Kurang">View More</button>
+                    <div class="product-details collapsible">
+                        <p><strong data-en="Size" data-zh="尺码" data-ms="Saiz">Size</strong>: N/A</p>
+                        <p><strong data-en="Length" data-zh="裙长" data-ms="Panjang">Length</strong>: N/A</p>
+                        <p><strong data-en="Bust" data-zh="胸围" data-ms="Dada">Bust</strong>: N/A</p>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card animate-on-scroll" data-product-id="P004" data-category="dress">
+                    <div class="product-image-container">
+                        <div class="out-of-stock-overlay" data-en="Out of Stock" data-zh="已售罄" data-ms="Telah Dijual">Out of Stock</div>
+                        <img src="images/SHEIN 性感时尚蓝色斜露肩.jpeg" alt="SHEIN 性感时尚蓝色斜露肩">
+                        <div class="product-actions">
+                            <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                        </div>
+                    </div>
+                    <h3 data-en="SHEIN Sexy Blue Off-Shoulder" data-zh="SHEIN 性感时尚蓝色斜露肩" data-ms="SHEIN Seksi Biru Bahu Terbuka">SHEIN 性感时尚蓝色斜露肩</h3>
+                    <p class="price">RM45</p>
+                    <button class="toggle-details-btn" data-en-more="View More" data-zh-more="查看更多" data-ms-more="Lihat Lagi" data-en-less="View Less" data-zh-less="收起" data-ms-less="Lihat Kurang">View More</button>
+                    <div class="product-details collapsible">
+                        <p><strong data-en="Size" data-zh="尺码" data-ms="Saiz">Size</strong>: N/A</p>
+                        <p><strong data-en="Length" data-zh="裙长" data-ms="Panjang">Length</strong>: N/A</p>
+                        <p><strong data-en="Bust" data-zh="胸围" data-ms="Dada">Bust</strong>: N/A</p>
+                    </div>
+                </div>
+
+                <!-- Product Card 7 -->
+                <div class="product-card animate-on-scroll" data-product-id="P007" data-category="sport">
+                    <div class="product-image-container clickable-gallery" data-front-src="images/moving-peach-back.jpeg" data-back-src="images/moving-peach-front.jpeg">
+                        <div class="out-of-stock-overlay" data-en="Out of Stock" data-zh="已售罄" data-ms="Telah Dijual">Out of Stock</div>
+                        <img src="images/moving-peach-back.jpeg" alt="MOVING PEACH Yoga Crop Top">
+                        <button class="arrow left">&#10094;</button>
+                        <button class="arrow right">&#10095;</button>
+                        <div class="product-actions">
+                            <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                        </div>
+                    </div>
+                    <h3 data-en="MOVING PEACH Yoga Crop Top" data-zh="MOVING PEACH 瑜伽短款上衣" data-ms="MOVING PEACH Yoga Crop Top">MOVING PEACH Yoga Crop Top</h3>
+                    <p class="price">RM40</p>
+                    <button class="toggle-details-btn" data-en-more="View More" data-zh-more="查看更多" data-ms-more="Lihat Lagi" data-en-less="View Less" data-zh-less="收起" data-ms-less="Lihat Kurang">View More</button>
+                    <div class="product-details collapsible">
+                        <p><strong data-en="Size" data-zh="尺码" data-ms="Saiz">Size</strong>: N/A</p>
+                        <p><strong data-en="Length" data-zh="裙长" data-ms="Panjang">Length</strong>: N/A</p>
+                        <p><strong data-en="Bust" data-zh="胸围" data-ms="Dada">Bust</strong>: N/A</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Wishlist/Cart Side Panel -->
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h3 id="panel-title">Your Wishlist</h3>
+            <button class="close-panel-btn">&times;</button>
+        </div>
+        <div id="panel-content" class="panel-content">
+            <!-- Items will be dynamically inserted here -->
+        </div>
+        <div id="panel-footer" class="panel-footer">
+            <!-- Purchase button will be inserted here -->
+        </div>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast-notification"></div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Confirm Your Purchase" data-zh="确认您的购买" data-ms="Sahkan Pembelian Anda">Confirm Your Purchase</h2>
+                <span class="close-btn">&times;</span>
+            </div>
+            <div id="checkout-summary" class="modal-body">
+                <!-- Checkout items will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-purchase-btn" data-en="Confirm Purchase" data-zh="确认购买" data-ms="Sahkan Pembelian">Confirm Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="payment-modal-content">
+            <span class="close-modal" id="close-payment-modal">&times;</span>
+            <h2 data-en="Complete Your Payment" data-zh="完成支付" data-ms="Selesaikan Pembayaran">Complete Your Payment</h2>
+            <div id="payment-total-summary" class="payment-total-summary"></div>
+            <div class="qr-code-container">
+                <p data-en="Scan the QR code with your Touch 'n Go eWallet to pay. On mobile, you can screenshot this and use 'Scan from Gallery'." data-zh="请使用您的Touch 'n Go电子钱包扫描二维码以支付。在手机上，您可以截图并使用“从相册扫描”功能。" data-ms="Imbas kod QR dengan eWallet Touch 'n Go anda untuk membayar. Di telefon bimbit, anda boleh mengambil tangkapan skrin dan menggunakan 'Imbas dari Galeri'.">Scan the QR code with your Touch 'n Go eWallet to pay. On mobile, you can screenshot this and use 'Scan from Gallery'.</p>
+                <img src="images/tng_qr_code.png" alt="Touch 'n Go QR Code">
+                <p class="payment-confirmation-note" data-en="After paying, please send a screenshot of your receipt to us on WhatsApp to confirm your order." data-zh="付款后，请将您的收据截图通过WhatsApp发送给我们以确认您的订单。" data-ms="Selepas membuat pembayaran, sila hantar tangkapan skrin resit anda kepada kami melalui WhatsApp untuk mengesahkan pesanan anda.">After paying, please send a screenshot of your receipt to us on WhatsApp to confirm your order.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Credit Card Form Modal -->
+    <div id="credit-card-modal" class="modal">
+        <div class="payment-modal-content">
+            <span class="close-modal" id="close-credit-card-modal">&times;</span>
+            <h2 data-en="Enter Card Details" data-zh="输入卡片详细信息" data-ms="Masukkan Butiran Kad">Enter Card Details</h2>
+            <form class="credit-card-form">
+                <div class="form-group">
+                    <input type="text" id="card-number" placeholder=" " autocomplete="cc-number">
+                    <label for="card-number" data-en="Card Number" data-zh="卡号" data-ms="Nombor Kad">Card Number</label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <select id="expiry-month" required autocomplete="cc-exp-month">
+                            <option value="" disabled selected hidden></option>
+                            <option value="01">01 - Jan</option>
+                            <option value="02">02 - Feb</option>
+                            <option value="03">03 - Mar</option>
+                            <option value="04">04 - Apr</option>
+                            <option value="05">05 - May</option>
+                            <option value="06">06 - Jun</option>
+                            <option value="07">07 - Jul</option>
+                            <option value="08">08 - Aug</option>
+                            <option value="09">09 - Sep</option>
+                            <option value="10">10 - Oct</option>
+                            <option value="11">11 - Nov</option>
+                            <option value="12">12 - Dec</option>
+                        </select>
+                        <label for="expiry-month" data-en="Month" data-zh="月" data-ms="Bulan">Month</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="expiry-year" required autocomplete="cc-exp-year">
+                            <option value="" disabled selected hidden></option>
+                        </select>
+                        <label for="expiry-year" data-en="Year" data-zh="年" data-ms="Tahun">Year</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="cvc" placeholder=" " autocomplete="cc-csc">
+                    <label for="cvc" data-en="CVC" data-zh="CVC" data-ms="CVC">CVC</label>
+                </div>
+                <button type="button" class="payment-btn" id="pay-now-btn" data-en="Pay Now" data-zh="立即付款" data-ms="Bayar Sekarang">Pay Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Thank You Modal -->
+    <div id="thank-you-modal" class="modal">
+        <div class="payment-modal-content">
+            <span class="close-modal" id="close-thank-you-modal">&times;</span>
+            <h2 data-en="Thank You!" data-zh="谢谢!" data-ms="Terima Kasih!">Thank You!</h2>
+            <p data-en="Your order has been placed successfully." data-zh="您的订单已成功下达。" data-ms="Pesanan anda telah berjaya dibuat.">Your order has been placed successfully.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let wishlistItems = [];
+        let cartItems = [];
+        let soldItems = []; // Array to track sold product IDs
+        let toastTimeout;
+
+        /**
+         * Displays a toast notification message.
+         * @param {string} message The message to display.
+         */
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            if (!toast) return;
+
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            // Clear any existing timeout to reset the timer
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+            }
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        }
+        /**
+         * Sets up smooth scrolling for all navigation links.
+         */
+        function initializeSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId.length > 1) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        /**
+         * Runs a typewriter animation on the main headline.
+         */
+        function runTextAnimation() {
+            const animatedText = document.getElementById('animated-headline');
+            if (animatedText) {
+                const text = animatedText.textContent;
+                animatedText.textContent = '';
+                let i = 0;
+                if (animatedText.timeoutId) clearTimeout(animatedText.timeoutId);
+                function typeWriter() {
+                    if (i < text.length) {
+                        animatedText.textContent += text.charAt(i);
+                        i++;
+                        animatedText.timeoutId = setTimeout(typeWriter, 150);
+                    }
+                }
+                typeWriter();
+            }
+        }
+
+        /**
+         * Changes the language of the page content.
+         */
+        function changeLanguage(selectedLanguage) {
+            // Handle all elements with language data attributes
+            document.querySelectorAll('[data-en], [data-zh], [data-ms], .toggle-details-btn').forEach(element => {
+                // Special handling for the toggle buttons
+                if (element.classList.contains('toggle-details-btn')) {
+                    const details = element.closest('.product-card').querySelector('.product-details.collapsible');
+                    const isExpanded = details.classList.contains('active');
+                    const attr = isExpanded ? 'data-' + selectedLanguage + '-less' : 'data-' + selectedLanguage + '-more';
+                    element.textContent = element.getAttribute(attr);
+                } 
+                // Handle all other standard elements
+                else {
+                    const text = element.getAttribute('data-' + selectedLanguage);
+                    if (text !== null) {
+                        if (element.tagName === 'TITLE') {
+                            document.title = text;
+                        } else {
+                            element.textContent = text;
+                        }
+                    }
+                }
+            });
+
+            document.documentElement.lang = selectedLanguage;
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem('preferredLanguage', selectedLanguage);
+            }
+            document.querySelectorAll('.language-selector button').forEach(b => b.classList.remove('active'));
+            const activeButton = document.querySelector(`.language-selector button[data-lang="${selectedLanguage}"]`);
+            if (activeButton) activeButton.classList.add('active');
+            runTextAnimation();
+        }
+
+        function initializeLanguage() {
+            const savedLanguage = (typeof(Storage) !== "undefined" && localStorage.getItem('preferredLanguage')) || 'en';
+            changeLanguage(savedLanguage);
+        }
+
+        /**
+         * Initializes the actions for product cards (add to wishlist/cart).
+         */
+        function initializeProductActions() {
+            document.querySelectorAll('.product-actions a').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation(); // Prevent other clicks like image modal
+
+                    const card = this.closest('.product-card');
+                    const productId = card.dataset.productId;
+
+                    if (card.classList.contains('is-sold')) {
+                        showToast('This item is sold out.');
+                        return;
+                    }
+                    const productName = card.querySelector('h3').textContent;
+                    const productPrice = card.querySelector('.price').textContent;
+                    const productImage = card.querySelector('img').src;
+
+                    const product = {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage
+                    };
+
+                    if (this.title.includes('Wishlist')) {
+                        const isInWishlist = wishlistItems.some(item => item.id === productId);
+                        if (isInWishlist) {
+                            // Item is in the list, so remove it
+                            wishlistItems = wishlistItems.filter(item => item.id !== productId);
+                            this.classList.remove('active');
+                            this.innerHTML = '&#x2661;'; // Outline Heart
+                            showToast('Removed from your wishlist.');
+                        } else {
+                            // Item is not in the list, so add it
+                            wishlistItems.push(product);
+                            this.classList.add('active');
+                            this.innerHTML = '&#x2665;'; // Solid Heart
+                            showToast('Added to your wishlist!');
+                        }
+                    } else if (this.title.includes('Cart')) {
+                        const isInCart = cartItems.some(item => item.id === productId);
+
+                        if (isInCart) {
+                            cartItems = cartItems.filter(item => item.id !== productId);
+                            this.classList.remove('active');
+                            showToast('Removed from your cart.');
+                        } else {
+                            // Add to cart
+                            cartItems.push(product);
+                            this.classList.add('active');
+                            showToast('Added to your cart!');
+                        }
+                    }
+                });
+            });
+        }
+
+        /**
+         * Initializes the functionality for header icons (Wishlist, Cart).
+         */
+        function initializeHeaderActions() {
+            // This function's logic is now handled by initializeSidePanel to avoid duplicate event listeners.
+            // We are keeping the function here in case we want to add other header actions later.
+        }
+
+        /**
+         * Initializes the side panel for wishlist and cart.
+         */
+        function initializeSidePanel() {
+            const panel = document.getElementById('side-panel');
+            const overlay = document.getElementById('panel-overlay');
+            const closeBtn = panel.querySelector('.close-panel-btn');
+            const panelTitle = document.getElementById('panel-title');
+            const panelContent = document.getElementById('panel-content');
+            const panelFooter = document.getElementById('panel-footer');
+
+            const wishlistBtn = document.querySelector('.header-icons a[title="Wishlist"]');
+            const cartBtn = document.querySelector('.header-icons a[title="Cart"]');
+
+            function handleConfirmPurchase() {
+                // Deactivate buttons for purchased items
+                cartItems.forEach(item => {
+                    const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
+                    if (productCard) {
+                        const cartButton = productCard.querySelector('.product-actions .cart-button');
+                        if (cartButton) {
+                            cartButton.classList.remove('active');
+                        }
+                    }
+                });
+
+                // Clear the cart
+                cartItems = [];
+
+                // Close panel
+                closePanel();
+
+                // Show confirmation toast
+                showToast('Thank you for your purchase!');
+            }
+
+            function renderPanelContent(type) {
+                panelContent.innerHTML = ''; // Clear previous content
+                panelFooter.innerHTML = ''; // Clear footer
+                const items = type === 'wishlist' ? wishlistItems : cartItems;
+
+                if (items.length === 0) {
+                    panelContent.innerHTML = '<p class="empty-list-msg">Your list is empty.</p>';
+                    return;
+                }
+
+                items.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('panel-item');
+                    itemElement.dataset.productId = item.id;
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="panel-item-img">
+                        <div class="panel-item-details">
+                            <p class="panel-item-name">${item.name}</p>
+                            <p class="panel-item-price">${item.price}</p>
+                        </div>
+                        <button class="remove-item-btn" data-type="${type}">&times;</button>
+                    `;
+                    panelContent.appendChild(itemElement);
+                });
+
+                if (type === 'cart' && items.length > 0) {
+                const total = items.reduce((acc, item) => acc + parseFloat(item.price.replace('RM', '')), 0);
+                panelFooter.innerHTML = `
+                    <div id="cart-total">Total: RM${total.toFixed(2)}</div>
+                    <button id="checkout-btn" class="checkout-btn">Checkout</button>
+                `;
+            }
+            }
+
+            function openPanel(type) {
+                const titleKey = type === 'wishlist' ? 'Your Wishlist' : 'Your Cart';
+                // We can add translation for the title later if needed
+                panelTitle.textContent = titleKey;
+                renderPanelContent(type);
+                panel.classList.add('open');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closePanel() {
+                panel.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            // Event listener for removing items from the panel
+            panelContent.addEventListener('click', function(event) {
+                if (event.target.classList.contains('remove-item-btn')) {
+                    const itemElement = event.target.closest('.panel-item');
+                    const productId = itemElement.dataset.productId;
+                    const type = event.target.dataset.type;
+
+                    if (type === 'wishlist') {
+                        wishlistItems = wishlistItems.filter(item => item.id !== productId);
+                        showToast('Removed from your wishlist.');
+                        // Update the heart icon on the product card
+                        const productCard = document.querySelector(`.product-card[data-product-id="${productId}"]`);
+                        if (productCard) {
+                            const wishlistButton = productCard.querySelector('.product-actions a[title*="Wishlist"]');
+                            if (wishlistButton) {
+                                wishlistButton.classList.remove('active');
+                                wishlistButton.innerHTML = '&#x2661;'; // Outline Heart
+                            }
+                        }
+                    } else {
+                        cartItems = cartItems.filter(item => item.id !== productId);
+                        showToast('Removed from your cart.');
+                        // Update the icon on the product card
+                        const productCard = document.querySelector(`.product-card[data-product-id="${productId}"]`);
+                        if (productCard) {
+                            const cartButton = productCard.querySelector('.product-actions a[title*="Cart"]');
+                            if (cartButton) {
+                                cartButton.classList.remove('active');
+                            }
+                        }
+                    }
+
+                    renderPanelContent(type); // Re-render the panel
+                }
+            });
+
+            if (wishlistBtn) {
+                wishlistBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openPanel('wishlist');
+                });
+            }
+
+            if (cartBtn) {
+                cartBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openPanel('cart');
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closePanel);
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', closePanel);
+            }
+
+
+        }
+
+        /**
+         * Sets up image previews for the profile photo and all product images
+         * using event delegation. This is more efficient and works for dynamic content.
+         */
+        function initializeImagePreviews() {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            const closeModal = document.querySelector(".close-modal");
+
+            if (!modal || !modalImg || !closeModal) {
+                console.error("Image preview modal elements not found!");
+                return;
+            }
+
+            // Listen for clicks on the whole document
+            document.addEventListener('click', function(event) {
+                const target = event.target;
+
+                // Ignore clicks on interactive elements like action buttons or gallery arrows
+                if (target.closest('.product-actions a') || target.closest('.arrow')) {
+                    return;
+                }
+
+                const imageContainer = target.closest('.product-image-container');
+                const profilePhoto = target.closest('#profilePhoto');
+
+                let imgSrc = null;
+
+                if (profilePhoto) {
+                    imgSrc = profilePhoto.src;
+                } else if (imageContainer) {
+                    // For product images, find the image inside the container
+                    const img = imageContainer.querySelector('img');
+                    if (img) {
+                        imgSrc = img.src;
+                    }
+                }
+
+                if (imgSrc) {
+                    modal.style.display = "block";
+                    modalImg.src = imgSrc;
+                }
+            });
+
+            // Close the modal when the 'x' is clicked
+            closeModal.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Close the modal when clicking outside the image
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+        /**
+         * Initializes the "View More" buttons for product cards.
+         */
+        function initializeToggleDetails() {
+            document.querySelectorAll('.toggle-details-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.product-card');
+                    const details = card.querySelector('.product-details.collapsible');
+                    details.classList.toggle('active');
+
+                    // Update button text after toggling
+                    const lang = document.documentElement.lang || 'en';
+                    const isExpanded = details.classList.contains('active');
+                    const attr = isExpanded ? 'data-' + lang + '-less' : 'data-' + lang + '-more';
+                    button.textContent = button.getAttribute(attr);
+                });
+            });
+        }
+
+        function initializeProductImageHover() {
+            document.querySelectorAll('.product-image-container:not(.clickable-gallery)').forEach(container => {
+                const frontSrc = container.dataset.frontSrc;
+                const backSrc = container.dataset.backSrc;
+                const img = container.querySelector('img');
+
+                if (frontSrc && backSrc && img) {
+                    container.addEventListener('mouseenter', () => {
+                        img.src = backSrc;
+                    });
+                    container.addEventListener('mouseleave', () => {
+                        img.src = frontSrc;
+                    });
+                }
+            });
+        }
+
+        function initializeImageGalleries() {
+            document.querySelectorAll('.clickable-gallery').forEach(gallery => {
+                const img = gallery.querySelector('img');
+                const leftArrow = gallery.querySelector('.arrow.left');
+                const rightArrow = gallery.querySelector('.arrow.right');
+                const images = [gallery.dataset.frontSrc, gallery.dataset.backSrc].filter(Boolean);
+                let currentIndex = 0;
+
+                if (images.length < 2 || !img || !leftArrow || !rightArrow) return;
+
+                // Set initial image
+                img.src = images[currentIndex];
+
+                leftArrow.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent image modal from opening
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    img.src = images[currentIndex];
+                });
+
+                rightArrow.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent image modal from opening
+                    currentIndex = (currentIndex + 1) % images.length;
+                    img.src = images[currentIndex];
+                });
+            });
+        }
+
+        function initializeScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+            elementsToAnimate.forEach(el => observer.observe(el));
+        }
+
+        function initializeCheckout() {
+            const checkoutModal = document.getElementById('checkout-modal');
+            const closeBtn = checkoutModal.querySelector('.close-btn');
+            const confirmBtn = document.getElementById('confirm-purchase-btn');
+            const summaryBody = document.getElementById('checkout-summary');
+
+            document.body.addEventListener('click', (event) => {
+                if (event.target.id === 'checkout-btn') {
+                    // Populate summary
+                    summaryBody.innerHTML = ''; // Clear previous summary
+                    cartItems.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'checkout-item';
+                        itemElement.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="checkout-item-details">
+                                <h4>${item.name}</h4>
+                                <p>${item.price}</p>
+                            </div>
+                        `;
+                        summaryBody.appendChild(itemElement);
+                    });
+
+                    checkoutModal.style.display = 'flex';
+                }
+            });
+
+            const closeModal = () => {
+                checkoutModal.style.display = 'none';
+            };
+
+            closeBtn.addEventListener('click', closeModal);
+            confirmBtn.addEventListener('click', () => {
+                // Close the checkout summary modal
+                closeModal();
+
+                // Get total from cart panel and set it in payment modal
+                const cartTotalElement = document.querySelector('#cart-total');
+                const paymentTotalSummary = document.getElementById('payment-total-summary');
+                if (cartTotalElement && paymentTotalSummary) {
+                    paymentTotalSummary.textContent = cartTotalElement.textContent;
+                }
+
+                // Open the payment options modal
+                const paymentModal = document.getElementById('payment-modal');
+                if (paymentModal) {
+                    paymentModal.style.display = 'flex';
+                }
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == checkoutModal) {
+                    closeModal();
+                }
+            });
+        }
+
+        function initializePaymentFlow() {
+            const paymentModal = document.getElementById('payment-modal');
+            const thankYouModal = document.getElementById('thank-you-modal');
+            const creditCardModal = document.getElementById('credit-card-modal');
+            const closePaymentModalBtn = document.getElementById('close-payment-modal');
+            const closeThankYouModalBtn = document.getElementById('close-thank-you-modal');
+            const closeCreditCardModalBtn = document.getElementById('close-credit-card-modal');
+            const paymentOptions = document.querySelector('.payment-options');
+            const payNowBtn = document.getElementById('pay-now-btn');
+            const expiryYearSelect = document.getElementById('expiry-year');
+
+            // Populate expiry year dropdown
+        if (expiryYearSelect) {
+            const currentYear = new Date().getFullYear();
+            for (let i = 0; i < 10; i++) {
+                const year = currentYear + i;
+                const option = document.createElement('option');
+                option.value = year.toString().slice(-2); // Use 2-digit year
+                option.textContent = year.toString().slice(-2); // Use 2-digit year
+                expiryYearSelect.appendChild(option);
+            }
+        }
+
+            if (!paymentModal || !thankYouModal || !creditCardModal || !closePaymentModalBtn || !closeThankYouModalBtn || !closeCreditCardModalBtn || !paymentOptions || !payNowBtn) {
+                return;
+            }
+
+            const closePaymentModal = () => {
+                paymentModal.style.display = 'none';
+            };
+
+            const closeThankYouModal = () => {
+                thankYouModal.style.display = 'none';
+            };
+
+            const closeCreditCardModal = () => {
+                creditCardModal.style.display = 'none';
+            };
+
+            closePaymentModalBtn.addEventListener('click', closePaymentModal);
+            closeThankYouModalBtn.addEventListener('click', closeThankYouModal);
+            closeCreditCardModalBtn.addEventListener('click', closeCreditCardModal);
+
+            const handleSuccessfulPayment = () => {
+                // Mark all items in cart as sold
+                cartItems.forEach(item => {
+                    if (!soldItems.includes(item.id)) {
+                        soldItems.push(item.id);
+                    }
+                    const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
+                    if (productCard) {
+                        productCard.classList.add('is-sold');
+                    }
+                });
+
+                // Clear the cart
+                cartItems = [];
+
+                // Close all modals
+                closePaymentModal();
+                closeCreditCardModal();
+                
+                // Also close the side panel
+                const sidePanel = document.getElementById('side-panel');
+                if (sidePanel && sidePanel.classList.contains('open')) {
+                    sidePanel.querySelector('.close-panel-btn').click();
+                }
+
+                // Show thank you modal which replaces the toast for purchase confirmation
+                thankYouModal.style.display = 'flex';
+                showToast('Thank you for your purchase!');
+
+                // Optionally, close thank you modal after a few seconds
+                setTimeout(() => {
+                    closeThankYouModal();
+                }, 3000);
+            };
+
+            // Event listeners for old payment buttons (credit card, PayPal) are removed.
+            // The new flow displays a QR code and relies on the user to pay and close the modal.
+
+            window.addEventListener('click', (event) => {
+                if (event.target == paymentModal) {
+                    closePaymentModal();
+                }
+                if (event.target == thankYouModal) {
+                    closeThankYouModal();
+                }
+                if (event.target == creditCardModal) {
+                    closeCreditCardModal();
+                }
+            });
+        }
+
+        // This is the main trigger that runs everything when the page loads.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Home Slideshow
+            const homeSlides = document.querySelectorAll('#home-slideshow .slide');
+            if (homeSlides.length > 0) {
+                let currentHomeSlide = 0;
+
+                function showHomeSlide(index) {
+                    homeSlides.forEach((slide, i) => {
+                        slide.classList.toggle('active', i === index);
+                    });
+                }
+
+                showHomeSlide(currentHomeSlide);
+
+                setInterval(() => {
+                    currentHomeSlide = (currentHomeSlide + 1) % homeSlides.length;
+                    showHomeSlide(currentHomeSlide);
+                }, 5000); // Change image every 5 seconds
+            }
+
+            initializeLanguage();
+            initializeSmoothScroll();
+            initializeImagePreviews(); // Handles all image previews
+            initializeProductActions();
+            initializeHeaderActions();
+            initializeSidePanel();
+            initializeToggleDetails();
+            initializeProductImageHover();
+            initializeImageGalleries();
+            initializeScrollAnimations();
+            initializeCheckout();
+            initializePaymentFlow();
+
+            // Dropdown menu logic
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownContent = document.getElementById('myDropdown');
+
+            if (dropdown) {
+                dropdown.addEventListener('click', (e) => {
+                    // Prevent link navigation and toggle dropdown
+                    if (e.target.classList.contains('dropbtn')) {
+                        e.preventDefault(); // Keep preventDefault to ensure smooth scroll is the only navigation action
+                        dropdownContent.classList.toggle('show');
+                    }
+                });
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.addEventListener('click', function(event) {
+                if (!event.target.closest('.dropdown')) {
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                    }
+                }
+            });
+
+            // Product filtering logic
+            const filterButtonsContainer = document.querySelector('.filter-buttons');
+            const productCards = document.querySelectorAll('.product-card');
+            const dropdownFilters = document.querySelectorAll('.dropdown-filter');
+
+            // Function to update filter counts from existing static cards
+            function updateFilterCounts() {
+                const allCards = Array.from(productCards); // Convert NodeList to Array for filtering
+                const counts = {
+                    all: allCards.length,
+                    cheongsam: allCards.filter(p => p.dataset.category === 'cheongsam').length,
+                    tops: allCards.filter(p => p.dataset.category === 'tops').length,
+                    bottoms: allCards.filter(p => p.dataset.category === 'bottoms').length,
+                    sport: allCards.filter(p => p.dataset.category === 'sport').length
+                };
+
+                document.querySelectorAll('[data-filter]').forEach(el => {
+                    const filter = el.dataset.filter;
+                    const baseText = el.getAttribute('data-en'); // Use English text as the base
+                    if (baseText && counts[filter] !== undefined) {
+                        // Note: This will be in English. Language switching will override this.
+                        el.textContent = `${baseText} (${counts[filter]})`;
+                    }
+                });
+            }
+
+            function filterProducts(filter) {
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update active state for filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.filter === filter) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+
+            if (filterButtonsContainer) {
+                filterButtonsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('filter-btn')) {
+                        const filter = e.target.dataset.filter;
+                        filterProducts(filter);
+                    }
+                });
+            }
+
+            dropdownFilters.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const filter = e.target.dataset.filter;
+                    filterProducts(filter);
+                    dropdownContent.classList.remove('show'); // Hide dropdown after selection
+                });
+            });
+
+            updateFilterCounts();
+            filterProducts('all');
+        if (homeSlides.length > 0) {
+            let currentHomeSlide = 0;
+
+            function showHomeSlide(index) {
+                homeSlides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+            }
+
+            showHomeSlide(currentHomeSlide);
+
+            setInterval(() => {
+                currentHomeSlide = (currentHomeSlide + 1) % homeSlides.length;
+                showHomeSlide(currentHomeSlide);
+            }, 5000); // Change image every 5 seconds
+        }
+
+    });
+
+    </script>
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column footer-about">
+            <h4 class="logo-text">Winnie Finds</h4>
+            <p data-en="Discover unique, pre-loved fashion and join our movement towards sustainable style." data-zh="发现独特的二手时尚，加入我们的可持续风格运动。" data-ms="Temui fesyen terpakai yang unik dan sertai gerakan kami ke arah gaya lestari.">Discover unique, pre-loved fashion and join our movement towards sustainable style.</p>
+        </div>
+
+        <div class="footer-column footer-links">
+            <h4 data-en="Quick Links" data-zh="快速链接" data-ms="Pautan Pantas">Quick Links</h4>
+            <ul>
+                <li><a href="#home" data-en="Home" data-zh="首页" data-ms="Laman Utama">Home</a></li>
+                <li><a href="#about" data-en="About" data-zh="关于我们" data-ms="Tentang Kami">About</a></li>
+                <li><a href="#featured" data-en="Featured Finds" data-zh="精选发现" data-ms="Pilihan Istimewa">Featured Finds</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-contact">
+            <h4 data-en="Contact Info" data-zh="联系信息" data-ms="Maklumat Hubungan">Contact Info</h4>
+            <ul>
+                <li><i class="fas fa-envelope"></i><a href="mailto:yijin100299@gmail.com">yijin100299@gmail.com</a></li>
+                <li><i class="fas fa-phone"></i>+60172878786 (Ms.Jin)</li>
+            </ul>
+        </div>
+
+        <div class="footer-column footer-social">
+            <h4 data-en="Follow Us" data-zh="关注我们" data-ms="Ikuti Kami">Follow Us</h4>
+            <ul>
+                <li><a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Winnie Finds. All Rights Reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
