@@ -242,10 +242,25 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-            }
-        }
+    /* This stacks the header vertically on mobile */
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    /* This centers the navigation items and allows them to wrap */
+    nav {
+        margin-top: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* This was the only style you had before */
+    body {
+        font-size: 16px;
+    }
+}
 
         section {
             min-height: 80vh;
