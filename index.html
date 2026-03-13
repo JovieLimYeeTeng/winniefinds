@@ -85,10 +85,11 @@
         }
 
         .header-icons {
-            display: flex;
-            gap: 1rem;
-            font-size: 1.5rem;
-        }
+    display: flex;
+    align-items: center; /* This is the new line */
+    gap: 1rem;
+    font-size: 1.5rem;
+}
 
         .header-icons a {
             color: var(--text-color);
@@ -1923,7 +1924,7 @@
 
             <div class="header-icons">
                 <a href="#" title="Wishlist">&#x2661;</a>
-                <a href="#" title="Cart" class="cart-icon-wrapper">&#x1F6D2;<span class="cart-quantity">0</span></a>
+                <a href="#" title="Cart" class="cart-icon-wrapper"><i class="fas fa-shopping-cart"></i><span class="cart-quantity">0</span></a>
                 <a href="#" title="Purchase History"><i class="fas fa-receipt"></i></a>
             </div>
             <div class="language-selector">
@@ -1990,7 +1991,7 @@
                         <img src="images/makiyo-cheongsam.jpg" alt="Makiyo Cheongsam">
                         <div class="product-actions">
                             <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
-                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-cart-plus"></i></a>   <!-- Shopping Cart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-shopping-cart"></i></a>   <!-- Shopping Cart Icon -->
                         </div>
                     </div>
                     <h3 data-en="MAKIYO Cheongsam" data-zh="MALIYO 连身旗袍" data-ms="Cheongsam MAKIYO">MAKIYO Cheongsam</h3>
