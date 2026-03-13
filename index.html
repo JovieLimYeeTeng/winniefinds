@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">u 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-en="Winnie Finds ✨ - Welcome" data-zh="Winnie Finds ✨ - 欢迎" data-ms="Winnie Finds ✨ - Selamat Datang">Winnie Finds ✨ - Welcome</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Color Palette */
         :root {
@@ -24,6 +24,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6; /* Improved line spacing for readability */
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         /* Header Styles */
@@ -98,8 +99,71 @@
             color: var(--bg-color);
         }
 
+        /* Force hide the unwanted menu element */
+        .menu {
+            display: none !important;
+        }
+
         .header-icons a[title="Wishlist"].active {
             color: #ff6b6b; /* Red color for active wishlist heart */
+        }
+
+        /* Cart Quantity Badge */
+        .cart-icon-wrapper {
+            position: relative;
+            display: inline-flex; /* Helps align the badge properly */
+        }
+
+        .cart-quantity {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border: 2px solid var(--header-bg);
+            transform: scale(0); /* Hidden by default */
+            transition: transform 0.2s ease-out;
+        }
+
+        .cart-quantity.visible {
+            transform: scale(1); /* JS will add this class to show the badge */
+        }
+
+        /* Cart Quantity Badge */
+        .cart-icon-wrapper {
+            position: relative;
+            display: inline-flex; /* Helps align the badge properly */
+        }
+
+        .cart-quantity {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border: 2px solid var(--header-bg);
+            transform: scale(0); /* Hidden by default */
+            transition: transform 0.2s ease-out;
+        }
+
+        .cart-quantity.visible {
+            transform: scale(1); /* JS will add this class to show the badge */
         }
 
         /* Language Selector Styles */
@@ -171,7 +235,9 @@
 
         /* Main Content Styles */
         main {
-
+            display: block;
+            margin: 0;
+            padding: 0;
         }
 
         section {
@@ -258,6 +324,7 @@
             text-align: center;
             width: 100%;
             margin-bottom: 2rem; /* Add some space below the title */
+            font-size: 2.5rem; /* Harmonized section title size */
         }
 
         #about {
@@ -266,12 +333,6 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-        }
-
-        #about h2 {
-            font-size: 2.5rem; /* Larger font size for the heading */
-            text-align: center;
-            margin-bottom: 30px; /* Adds space below the heading */
         }
 
         #about p {
@@ -283,7 +344,7 @@
 
         /* Animated Text */
         .animate-text {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
             text-align: center;
             margin-top: 4rem;
@@ -316,13 +377,13 @@
 
         /* Footer Styles */
         footer {
-            background-color: #F8F9FA;
-            color: var(--text-color);
+            background-color: var(--header-bg) !important; /* Pink background */
+            color: #8B4513 !important; /* Set default text to a clear BROWN */
             text-align: center;
             padding: 2rem;
             border-top: 1px solid var(--light-grey);
-            position: relative; /* Ensures z-index works */
-            z-index: 1;       /* Keeps the footer on top */
+            position: relative;
+            z-index: 1;
         }
 
         .footer-nav {
@@ -332,32 +393,45 @@
             margin-bottom: 1rem;
         }
 
-        .footer-nav a {
-            color: var(--text-color);
+        /* Ensure all links and titles in the footer are a clear BROWN */
+        .footer h3,
+        .footer a,
+        .footer p {
+            color: #8B4513 !important;
             text-decoration: none;
+        }
+
+        .footer-nav a {
             font-weight: bold;
             transition: color 0.3s;
         }
 
+        /* Make links light on hover, to match the header */
         .footer-nav a:hover {
-            color: var(--header-bg);
+            color: var(--bg-color) !important;
         }
 
+        /* Copyright text should also be a clear BROWN */
         .copyright {
+            color: #8B4513 !important;
             font-size: 0.9rem;
             margin: 0;
         }
 
         /* Image Preview Modal Styles */
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
+            display: none; /* Hidden by default, JS toggles to flex */
+            position: fixed; 
+            z-index: 1001; 
+            /* padding-top: 100px; Removed for flexbox centering */
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
             background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
@@ -365,16 +439,17 @@
             display: block;
             width: 80%;
             max-width: 700px;
-            animation-name: zoom;
-            animation-duration: 0.6s;
         }
 
-        @keyframes zoom {
-            from {transform:scale(0)}
-            to {transform:scale(1)}
+        #modalImage {
+            width: auto;
+            height: auto;
+            max-width: 95%;
+            max-height: 95vh;
+            object-fit: contain;
         }
 
-        .close-modal {
+        .close {
             position: absolute;
             top: 15px;
             right: 35px;
@@ -382,28 +457,89 @@
             font-size: 40px;
             font-weight: bold;
             transition: 0.3s;
-            cursor: pointer;
         }
 
-        .close-modal:hover,
-        .close-modal:focus {
+        .close:hover,
+        .close:focus {
             color: #bbb;
             text-decoration: none;
+            cursor: pointer;
         }
 
         /* Payment Modal Specific Styles */
         .payment-modal-content {
+            position: relative; /* Needed for absolute positioning of the close button */
             background-color: var(--bg-color);
             margin: auto;
-            padding: 20px;
+            padding: 15px; /* Reduced padding */
             border: 1px solid var(--light-grey);
             width: 90%;
-            max-width: 500px;
+            max-width: 450px; /* Reduced max-width */
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             animation-name: zoom;
             animation-duration: 0.4s;
+            max-height: 85vh; /* Limit height to 85% of viewport height */
+            overflow-y: auto; /* Allow vertical scrolling if content overflows */
+            padding-bottom: 20px; /* Add padding to the bottom for the button */
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: var(--text-color);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* Purchase History Panel Styles */
+        .panel-item-actions {
+            flex-shrink: 0; /* Prevent this from shrinking */
+        }
+
+        .mark-received-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .received-text {
+            color: #6c757d;
+            font-style: italic;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .report-issue-btn {
+            background-color: #dc3545;
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .payment-total-summary {
@@ -422,24 +558,142 @@
         }
 
         .qr-code-container {
+            margin: 8px auto; /* Further reduced margin */
+            width: 100%;
+            max-width: 180px; /* Further reduced QR code size */
+            position: relative;
             text-align: center;
-            margin-top: 20px;
+        }
+
+        .qr-code-container a {
+            display: block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .qr-code-container a:hover {
+            transform: scale(1.03);
         }
 
         .qr-code-container img {
-            max-width: 250px; /* Reduced size for better display */
+            max-width: 100%;
             height: auto;
+            border-radius: 10px;
             border: 1px solid var(--light-grey);
-            display: block; /* Center the image */
-            margin: 0 auto; /* Center the image */
         }
 
-        .payment-confirmation-note {
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            margin-top: 15px;
+        .save-qr-text {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* QR Code Preview Modal */
+        #qr-preview-modal {
+            display: none;
+            position: fixed;
+            z-index: 1002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal-content-preview {
+            display: block;
+            width: 80%;
+            max-width: 450px;
+            animation: zoom 0.3s ease-in-out;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.5);}
+            to {transform: scale(1);}
+        }
+
+        #qr-preview-modal .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
             font-weight: bold;
-            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        #payment-timer {
+            color: var(--text-color);
+            font-family: 'Playfair Display', serif;
+            font-size: 16px; /* Reduced font size */
+            margin-bottom: 5px;
+        }
+
+        .payment-total-summary {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .scan-instruction {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 14px; /* Reduced font size */
+            line-height: 1.5;
+        }
+
+        .whatsapp-info {
+            background-color: #FEF2F5; /* Light pink background */
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .whatsapp-info p {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .whatsapp-btn, .done-btn {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366; /* WhatsApp Green */
+            color: #fff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .whatsapp-btn i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .done-btn {
+            background-color: var(--accent-color); /* Accent Pink */
+            color: #fff;
+        }
+
+        .whatsapp-btn:hover, .done-btn:hover {
+            opacity: 0.9;
         }
 
         .payment-btn {
@@ -536,6 +790,30 @@
         #pay-now-btn:hover {
             background-color: #c0392b;
             transform: translateY(-2px);
+        }
+
+        #payment-timer {
+            margin-bottom: 10px; /* Reduced margin */
+            font-size: 1rem; /* Reduced font size */
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center; /* Center the timer text */
+        }
+
+        .thank-you-content {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .thank-you-icon {
+            font-size: 4rem;
+            color: #28a745; /* Green color for success */
+            margin-bottom: 1rem;
+        }
+
+        .thank-you-content h2 {
+            margin-bottom: 1rem;
+            color: #28a745; /* Green color for success */
         }
 
         /* Side Panel for Wishlist/Cart */
@@ -849,11 +1127,9 @@
         }
 
         .product-card .price {
-            margin-top: 0.25rem;
-            font-size: 1.1rem; /* Increased font size */
-            font-weight: 500;
-            color: var(--text-color);
-            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .toggle-details-btn {
@@ -991,17 +1267,117 @@
     visibility: visible;
 }
 
-.product-card.is-sold .product-actions {
-    pointer-events: none; /* Disable clicking on the action container */
+.product-card.is-sold .product-actions,
+.product-card.sold-out .product-actions {
+    display: none; /* Hides the wishlist and cart buttons */
 }
 
-.product-card.is-sold .product-actions a {
-    color: #bbb; /* Grey out the icons */
-    transform: none; /* Prevent hover effect */
-}
+.product-card.is-sold .product-image-container,
+        .product-card.sold-out .product-image-container {
+            position: relative; /* Required for positioning the button */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: not-allowed;
+            pointer-events: none; /* Disables all click events on the image container */
+        }
+
+        .product-card.sold-out img {
+            opacity: 0.4; /* Dim the image */
+        }
+
+        .sold-out-button {
+            position: absolute; /* Position over the image */
+            background-color: #222;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            z-index: 1; /* Ensure it's on top of the dimmed image */
+            pointer-events: none; /* The button itself is not clickable */
+        }
 
 
 /* -- Checkout Modal -- */
+#customer-details-form {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.form-group-simple label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: var(--text-color);
+}
+
+.form-group-simple input,
+.form-group-simple textarea,
+.form-group-simple select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Phone Input Styling */
+.phone-input-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.phone-prefix {
+    background-color: #f0f0f0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-right: 1px solid #ccc;
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap;
+}
+
+.phone-prefix img {
+    width: 20px;
+    height: auto;
+}
+
+.phone-input-group input {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+}
+
+.phone-input-group input:focus {
+    outline: none;
+}
+
+/* Address Grid Styling */
+.address-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+#continue-to-payment-btn {
+    margin-top: 10px;
+    width: 100%;
+}
 .modal#checkout-modal .modal-content {
     background-color: var(--bg-color);
     margin: auto;
@@ -1268,7 +1644,7 @@
 }
 /* Footer Styles */
 .site-footer {
-    background-color: var(--dark-blue);
+    background-color: var(--header-bg);
     color: var(--light-grey);
     padding: 50px 0 0;
     font-size: 15px;
@@ -1288,22 +1664,24 @@
     flex: 1;
     min-width: 220px;
     margin: 0 15px 40px;
+    text-align: center; /* Center align text */
 }
 
 .footer-column h4 {
-    color: #fff;
-    margin-bottom: 25px;
-    font-size: 18px;
-    position: relative;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+            color: #5D4037 !important; /* Force color to dark brown */
+            margin-bottom: 25px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
 .footer-column h4::after {
     content: '';
     position: absolute;
-    left: 0;
+    left: 50%; /* Center the underline */
+    transform: translateX(-50%); /* Center the underline */
     bottom: 0;
     width: 45px;
     height: 2px;
@@ -1322,7 +1700,7 @@
 .footer-column p, .footer-column li {
     line-height: 1.8;
     margin-bottom: 12px;
-    color: #ccc;
+    color: #5D4037 !important;
 }
 
 .footer-column ul {
@@ -1331,19 +1709,20 @@
 }
 
 .footer-column ul li a {
-    color: #ccc;
+    color: #5D4037 !important;
     text-decoration: none;
     transition: color 0.3s, padding-left 0.3s;
 }
 
 .footer-column .footer-links ul li a:hover {
-    color: #fff;
+    color: var(--bg-color);
     padding-left: 5px;
 }
 
 .footer-contact ul li {
     display: flex;
     align-items: center;
+    justify-content: center; /* Center the contact items */
 }
 
 .footer-contact ul li i {
@@ -1356,6 +1735,7 @@
 .footer-social ul {
     display: flex;
     gap: 15px;
+    justify-content: center; /* Center the social icons */
 }
 
 .footer-social ul li a {
@@ -1376,7 +1756,7 @@
     padding: 20px 0;
     border-top: 1px solid #556278;
     font-size: 14px;
-    color: #aaa;
+    color: #5D4037; /* Dark Brown */
 }
 </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -1399,7 +1779,7 @@
     <!-- Header -->
     <header>
             <div class="logo-container">
-                <img id="profilePhoto" src="images/SHOP SECOND HAND.jpg" alt="Profile Photo" class="profile-photo">
+                <img id="headerProfilePic" src="images/SHOP SECOND HAND.jpg" alt="Profile Photo" class="profile-photo">
                 <div class="logo" data-en="Winnie Finds" data-zh="Winnie Finds" data-ms="Winnie Finds">Winnie Finds <i class="far fa-gem"></i></div>
             </div>
         <nav>
@@ -1412,13 +1792,15 @@
                 <a href="#" class="dropdown-filter" data-filter="cheongsam" data-en="Cheongsam" data-zh="旗袍" data-ms="Cheongsam">Cheongsam</a>
                 <a href="#" class="dropdown-filter" data-filter="tops" data-en="Tops" data-zh="上衣" data-ms="Baju Atasan">Tops</a>
                 <a href="#" class="dropdown-filter" data-filter="bottoms" data-en="Bottoms" data-zh="下装" data-ms="Seluar">Bottoms</a>
+                <a href="#" class="dropdown-filter" data-filter="dress/skirt" data-en="Dress/Skirt" data-zh="连衣裙/半身裙" data-ms="Pakaian/Skirt">Dress/Skirt</a>
                 <a href="#" class="dropdown-filter" data-filter="sport" data-en="Sport" data-zh="运动" data-ms="Sukan">Sport</a>
             </div>
             </div>
 
             <div class="header-icons">
                 <a href="#" title="Wishlist">&#x2661;</a>
-                <a href="#" title="Cart">&#x1F6D2;</a>
+                <a href="#" title="Cart" class="cart-icon-wrapper">&#x1F6D2;<span class="cart-quantity">0</span></a>
+                <a href="#" title="Purchase History"><i class="fas fa-receipt"></i></a>
             </div>
             <div class="language-selector">
                 <button data-lang="en" onclick="changeLanguage('en')">EN</button>
@@ -1442,7 +1824,7 @@
             <p class="animate-on-scroll" data-en="Welcome to Winnie Finds! We believe that looking good and doing good should go hand-in-hand. Our passion is finding beautiful, pre-loved clothes and giving them a second chance to shine. Every item in our collection is carefully hand-picked, meaning you're not just discovering a unique piece for your wardrobe—you're joining a movement. A movement to reduce fashion waste, celebrate sustainable style, and build a more conscious future, one gorgeous outfit at a time." data-zh="欢迎来到 Winnie Finds！我们相信，好看与行善应该齐头并进。我们的热情在于寻找美丽的二手衣物，并赋予它们第二次生命。我们系列中的每一件商品都经过精心挑选，这意味着您不仅在为您的衣橱发现一件独特的单品——您还能发现更多价值。一场旨在减少时尚浪费、颂扬可持续风格、一次一件华丽的服装，共创一个更有意识的未来的运动。" data-ms="Selamat datang ke Winnie Finds! Kami percaya bahawa kelihatan hebat dan berbuat baik harus seiring. Semangat kami adalah mencari pakaian terpakai yang cantik dan memberikannya peluang kedua untuk bersinar. Setiap item dalam koleksi kami dipilih dengan teliti, bermakna anda bukan sahaja menemui item unik untuk almari pakaian anda—anda sedang menyertai sebuah pergerakan. Sebuah pergerakan untuk mengurangkan sisa fesyen, meraikan gaya lestari, dan membina masa depan yang lebih sedar, satu persalinan indah pada satu masa.">Welcome to Winnie Finds! We believe that looking good and doing good should go hand-in-hand. Our passion is finding beautiful, pre-loved clothes and giving them a second chance to shine. Every item in our collection is carefully hand-picked, meaning you're not just discovering a unique piece for your wardrobe—you're joining a movement. A movement to reduce fashion waste, celebrate sustainable style, and build a more conscious future, one gorgeous outfit at a time.</p>
         </section>
         <section id="how-to-buy">
-            <h2 class="animate-on-scroll"<h2 data-en="Make It Yours 🎀" data-zh="选你所爱 🎀" data-ms="Jadikannya Milik Anda 🎀">Make It Yours 🎀</h2>
+            <h2 class="animate-on-scroll" data-en="Make It Yours 🎀" data-zh="选你所爱 🎀" data-ms="Jadikannya Milik Anda 🎀">Make It Yours 🎀</h2>
             <div class="how-to-buy-steps">
                 <div class="step animate-on-scroll">
                     <div class="icon"><i class="fas fa-search"></i></div>
@@ -1473,6 +1855,7 @@
                 <button class="filter-btn" data-filter="cheongsam" data-en="Cheongsam" data-zh="旗袍" data-ms="Cheongsam">Cheongsam</button>
                 <button class="filter-btn" data-filter="tops" data-en="Tops" data-zh="上衣" data-ms="Baju Atasan">Tops</button>
                 <button class="filter-btn" data-filter="bottoms" data-en="Bottoms" data-zh="下装" data-ms="Seluar">Bottoms</button>
+                <button class="filter-btn" data-filter="dress/skirt" data-en="Dress/Skirt" data-zh="连衣裙/半身裙" data-ms="Pakaian/Skirt">Dress/Skirt (2)</button>
                 <button class="filter-btn" data-filter="sport" data-en="Sport" data-zh="运动" data-ms="Sukan">Sport</button>
             </div>
             <div class="product-grid">
@@ -1483,7 +1866,7 @@
                         <img src="images/makiyo-cheongsam.jpg" alt="Makiyo Cheongsam">
                         <div class="product-actions">
                             <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
-                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-cart-plus"></i></a>   <!-- Shopping Cart Icon -->
                         </div>
                     </div>
                     <h3 data-en="MAKIYO Cheongsam" data-zh="MALIYO 连身旗袍" data-ms="Cheongsam MAKIYO">MAKIYO Cheongsam</h3>
@@ -1590,7 +1973,7 @@
 
     <!-- Image Preview Modal -->
     <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
+        <span class="close">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
 
@@ -1633,12 +2016,26 @@
         <div class="payment-modal-content">
             <span class="close-modal" id="close-payment-modal">&times;</span>
             <h2 data-en="Complete Your Payment" data-zh="完成支付" data-ms="Selesaikan Pembayaran">Complete Your Payment</h2>
+            
             <div id="payment-total-summary" class="payment-total-summary"></div>
+
+            <div id="payment-timer"></div>
+
+            <p class="scan-instruction" data-en="Scan the QR code with your Touch 'n Go eWallet to pay. On mobile, you can screenshot this and use 'Scan from Gallery'." data-zh="请使用您的Touch 'n Go电子钱包扫描二维码以支付。在手机上，您可以截图并使用“从相册扫描”功能。" data-ms="Imbas kod QR dengan eWallet Touch 'n Go anda untuk membayar. Di telefon bimbit, anda boleh mengambil tangkapan skrin dan menggunakan 'Imbas dari Galeri'.">Scan the QR code with your Touch 'n Go eWallet to pay. On mobile, you can screenshot this and use 'Scan from Gallery'.</p>
+
             <div class="qr-code-container">
-                <p data-en="Scan the QR code with your Touch 'n Go eWallet to pay. On mobile, you can screenshot this and use 'Scan from Gallery'." data-zh="请使用您的Touch 'n Go电子钱包扫描二维码以支付。在手机上，您可以截图并使用“从相册扫描”功能。" data-ms="Imbas kod QR dengan eWallet Touch 'n Go anda untuk membayar. Di telefon bimbit, anda boleh mengambil tangkapan skrin dan menggunakan 'Imbas dari Galeri'.">Scan the QR code with your Touch 'n Go eWallet to pay. On mobile, you can screenshot this and use 'Scan from Gallery'.</p>
-                <img src="images/tng_qr_code.png" alt="Touch 'n Go QR Code">
-                <p class="payment-confirmation-note" data-en="After paying, please send a screenshot of your receipt to us on WhatsApp to confirm your order." data-zh="付款后，请将您的收据截图通过WhatsApp发送给我们以确认您的订单。" data-ms="Selepas membuat pembayaran, sila hantar tangkapan skrin resit anda kepada kami melalui WhatsApp untuk mengesahkan pesanan anda.">After paying, please send a screenshot of your receipt to us on WhatsApp to confirm your order.</p>
+                    <a id="qr-code-clickable" href="#" title="Click to enlarge">
+                        <img src="images/tng_qr_code.png" alt="Payment QR Code">
+                    </a>
+                    <p class="save-qr-text" data-en="Click QR to enlarge" data-zh="点击二维码放大" data-ms="Klik kod QR untuk besarkan">Click QR to enlarge</p>
+                </div>
+
+            <div class="whatsapp-info">
+                <p data-en="After paying, please send a screenshot of your receipt to us on WhatsApp to confirm your order." data-zh="付款后，请将您的收据截图通过WhatsApp发送给我们以确认您的订单。" data-ms="Selepas membuat pembayaran, sila hantar tangkapan skrin resit anda kepada kami melalui WhatsApp untuk mengesahkan pesanan anda.">After paying, please send a screenshot of your receipt to us on WhatsApp to confirm your order.</p>
             </div>
+
+            <button id="whatsapp-btn" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> <span data-en="Send Receipt via WhatsApp" data-zh="通过WhatsApp发送收据" data-ms="Hantar Resit melalui WhatsApp">Send Receipt via WhatsApp</span></button>
+            <button id="done-btn" class="done-btn" data-en="Done" data-zh="完成" data-ms="Selesai">Done</button>
         </div>
     </div>
 
@@ -1687,12 +2084,92 @@
         </div>
     </div>
 
+    <!-- QR Code Preview Modal -->
+    <div id="qr-preview-modal" class="modal">
+        <span class="close-modal" id="close-qr-preview">&times;</span>
+        <img class="modal-content-preview" id="qr-preview-image">
+    </div>
+
     <!-- Thank You Modal -->
     <div id="thank-you-modal" class="modal">
         <div class="payment-modal-content">
-            <span class="close-modal" id="close-thank-you-modal">&times;</span>
-            <h2 data-en="Thank You!" data-zh="谢谢!" data-ms="Terima Kasih!">Thank You!</h2>
-            <p data-en="Your order has been placed successfully." data-zh="您的订单已成功下达。" data-ms="Pesanan anda telah berjaya dibuat.">Your order has been placed successfully.</p>
+            <span id="close-thank-you-modal" class="close-btn">&times;</span>
+            <div class="thank-you-content">
+                <div class="thank-you-icon" style="color: #28a745; font-size: 4rem; margin-bottom: 15px; text-align: center;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 data-en="Thank You!" data-zh="谢谢!" data-ms="Terima Kasih!">Thank You!</h2>
+                <p data-en="Your payment has been received." data-zh="已收到您的付款。" data-ms="Pembayaran anda telah diterima.">Your payment has been received.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customer-details-modal" class="modal">
+        <div class="payment-modal-content">
+            <span id="close-customer-details-modal" class="close-modal">&times;</span>
+            <h2 data-en="Shipping Details" data-zh="送货详情" data-ms="Butiran Penghantaran">Shipping Details</h2>
+            <form id="customer-details-form">
+                <div class="form-group-simple">
+                    <label for="customer-name" data-en="Full Name" data-zh="全名" data-ms="Nama Penuh">Full Name</label>
+                    <input type="text" id="customer-name" name="name" required placeholder="John Doe">
+                </div>
+                
+                <div class="form-group-simple">
+                    <label for="customer-phone" data-en="Phone Number" data-zh="电话号码" data-ms="Nombor Telefon">Phone Number</label>
+                    <div class="phone-input-group">
+                        <div class="phone-prefix">
+                            <img src="https://flagcdn.com/w40/my.png" alt="Malaysia Flag">
+                            <span>+60</span>
+                        </div>
+                        <input type="tel" id="customer-phone" name="phone" required placeholder="12 345 6789">
+                    </div>
+                </div>
+
+                <div class="form-group-simple">
+                    <label data-en="Address" data-zh="地址" data-ms="Alamat">Address</label>
+                    <div class="address-grid">
+                        <div class="full-width">
+                            <input type="text" id="address-line1" name="address-line1" required placeholder="Address Line 1 (e.g., No. 123, Jalan ABC)" data-en-placeholder="Address Line 1" data-zh-placeholder="地址第一行" data-ms-placeholder="Baris Alamat 1">
+                        </div>
+                        <div class="full-width">
+                            <input type="text" id="address-line2" name="address-line2" placeholder="Address Line 2 (Optional)" data-en-placeholder="Address Line 2 (Optional)" data-zh-placeholder="地址第二行 (可选)" data-ms-placeholder="Baris Alamat 2 (Pilihan)">
+                        </div>
+                        <div>
+                            <input type="text" id="address-city" name="city" required placeholder="City" data-en-placeholder="City" data-zh-placeholder="城市" data-ms-placeholder="Bandar">
+                        </div>
+                        <div>
+                            <input type="text" id="address-postcode" name="postcode" required placeholder="Postcode" data-en-placeholder="Postcode" data-zh-placeholder="邮政编码" data-ms-placeholder="Poskod">
+                        </div>
+                        <div>
+                            <select id="address-state" name="state" required>
+                                <option value="" disabled selected>State</option>
+                                <option value="Johor">Johor</option>
+                                <option value="Kedah">Kedah</option>
+                                <option value="Kelantan">Kelantan</option>
+                                <option value="Melaka">Melaka</option>
+                                <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                <option value="Pahang">Pahang</option>
+                                <option value="Penang">Penang</option>
+                                <option value="Perak">Perak</option>
+                                <option value="Perlis">Perlis</option>
+                                <option value="Sabah">Sabah</option>
+                                <option value="Sarawak">Sarawak</option>
+                                <option value="Selangor">Selangor</option>
+                                <option value="Terengganu">Terengganu</option>
+                                <option value="Kuala Lumpur">Kuala Lumpur</option>
+                                <option value="Labuan">Labuan</option>
+                                <option value="Putrajaya">Putrajaya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="text" id="address-country" name="country" value="Malaysia" readonly style="background-color: #f9f9f9;">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="continue-to-payment-btn" class="done-btn" data-en="Continue to Payment" data-zh="继续付款" data-ms="Teruskan ke Pembayaran">Continue to Payment</button>
+            </form>
         </div>
     </div>
 
@@ -1701,12 +2178,59 @@
         let wishlistItems = [];
         let cartItems = [];
         let soldItems = []; // Array to track sold product IDs
-        let toastTimeout;
+        let purchasedItems = [];
+        let customerDetails = {}; // Variable to store customer shipping info
+     let toastTimeout;
+        let paymentTimerInterval;
+
+        function updateCartBadge() {
+            const cartQuantityBadge = document.querySelector('.cart-quantity');
+            if (!cartQuantityBadge) return;
+
+            const count = cartItems.length;
+            cartQuantityBadge.textContent = count;
+            if (count > 0) {
+                cartQuantityBadge.classList.add('visible');
+            } else {
+                cartQuantityBadge.classList.remove('visible');
+            }
+        }
 
         /**
          * Displays a toast notification message.
          * @param {string} message The message to display.
          */
+        function startPaymentTimer() {
+            const timerDisplay = document.getElementById('payment-timer');
+            const paymentModal = document.getElementById('payment-modal');
+            if (!timerDisplay || !paymentModal) return;
+
+            let duration = 60; // 1 minute
+            timerDisplay.style.display = 'block';
+
+            // Clear any existing timer
+            clearInterval(paymentTimerInterval);
+
+            const updateTimer = () => {
+                if (duration < 0) {
+                    clearInterval(paymentTimerInterval);
+                    paymentModal.style.display = 'none';
+                    showToast('Your session has expired.');
+                    return;
+                }
+
+                const minutes = Math.floor(duration / 60);
+                let seconds = duration % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                timerDisplay.textContent = `Time left: ${minutes}:${seconds}`;
+                
+                duration--;
+            };
+
+            updateTimer(); // Call immediately to show the timer instantly
+            paymentTimerInterval = setInterval(updateTimer, 1000);
+        }
+
         function showToast(message) {
             const toast = document.getElementById('toast-notification');
             if (!toast) return;
@@ -1784,7 +2308,7 @@
                         if (element.tagName === 'TITLE') {
                             document.title = text;
                         } else {
-                            element.textContent = text;
+                            element.innerHTML = text;
                         }
                     }
                 }
@@ -1860,6 +2384,7 @@
                             this.classList.add('active');
                             showToast('Added to your cart!');
                         }
+                        updateCartBadge(); // This call ensures the badge updates on add/remove.
                     }
                 });
             });
@@ -1871,6 +2396,32 @@
         function initializeHeaderActions() {
             // This function's logic is now handled by initializeSidePanel to avoid duplicate event listeners.
             // We are keeping the function here in case we want to add other header actions later.
+        }
+
+        /**
+         * Marks items from the cart as sold out on the main product page.
+         * @param {Array} soldItems - An array of item objects that were in the cart.
+         */
+        function markItemsAsSold(soldItems) {
+            soldItems.forEach(item => {
+                const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
+                if (productCard) {
+                    // Add the 'sold-out' class to apply the new styles
+                    productCard.classList.add('sold-out');
+
+                    // Find the image container
+                    const imageContainer = productCard.querySelector('.product-image-container');
+                    // Check if the button already exists to prevent duplicates
+                    if (imageContainer && !imageContainer.querySelector('.sold-out-button')) {
+                        // Create the new "Out of Stock" button element
+                        const button = document.createElement('div');
+                        button.classList.add('sold-out-button');
+                        button.textContent = 'Out of Stock';
+                        // Add the button to the image container
+                        imageContainer.appendChild(button);
+                    }
+                }
+            });
         }
 
         /**
@@ -1886,6 +2437,7 @@
 
             const wishlistBtn = document.querySelector('.header-icons a[title="Wishlist"]');
             const cartBtn = document.querySelector('.header-icons a[title="Cart"]');
+            const historyBtn = document.querySelector('.header-icons a[title="Purchase History"]');
 
             function handleConfirmPurchase() {
                 // Deactivate buttons for purchased items
@@ -1912,10 +2464,18 @@
             function renderPanelContent(type) {
                 panelContent.innerHTML = ''; // Clear previous content
                 panelFooter.innerHTML = ''; // Clear footer
-                const items = type === 'wishlist' ? wishlistItems : cartItems;
+                let items = [];
+                if (type === 'wishlist') {
+                    items = wishlistItems;
+                } else if (type === 'cart') {
+                    items = cartItems;
+                } else if (type === 'history') {
+                    items = purchasedItems;
+                }
 
                 if (items.length === 0) {
-                    panelContent.innerHTML = '<p class="empty-list-msg">Your list is empty.</p>';
+                    const message = type === 'history' ? 'Your purchase history is empty.' : 'Your list is empty.';
+                    panelContent.innerHTML = `<p class="empty-list-msg">${message}</p>`;
                     return;
                 }
 
@@ -1923,28 +2483,54 @@
                     const itemElement = document.createElement('div');
                     itemElement.classList.add('panel-item');
                     itemElement.dataset.productId = item.id;
+
+                    let actionHtml = '';
+                    if (type === 'history') {
+                        if (item.received) {
+                            actionHtml = `<div class="panel-item-actions"><span class="received-text">Received</span></div>`;
+                        } else {
+                            actionHtml = `<div class="panel-item-actions"><button class="mark-received-btn" data-product-id="${item.id}">Mark as Received</button></div>`;
+                        }
+                    } else {
+                        actionHtml = `<button class="remove-item-btn" data-type="${type}">&times;</button>`;
+                    }
+
                     itemElement.innerHTML = `
                         <img src="${item.image}" alt="${item.name}" class="panel-item-img">
                         <div class="panel-item-details">
                             <p class="panel-item-name">${item.name}</p>
                             <p class="panel-item-price">${item.price}</p>
                         </div>
-                        <button class="remove-item-btn" data-type="${type}">&times;</button>
+                        ${actionHtml}
                     `;
                     panelContent.appendChild(itemElement);
                 });
 
                 if (type === 'cart' && items.length > 0) {
-                const total = items.reduce((acc, item) => acc + parseFloat(item.price.replace('RM', '')), 0);
-                panelFooter.innerHTML = `
-                    <div id="cart-total">Total: RM${total.toFixed(2)}</div>
-                    <button id="checkout-btn" class="checkout-btn">Checkout</button>
-                `;
-            }
+                    const total = items.reduce((acc, item) => acc + parseFloat(item.price.replace('RM', '')), 0);
+                    panelFooter.innerHTML = `
+                        <div id="cart-total">Total: RM${total.toFixed(2)}</div>
+                        <button id="checkout-btn" class="checkout-btn">Checkout</button>
+                    `;
+                } else if (type === 'history') {
+                    const unreceivedItems = purchasedItems.filter(item => !item.received);
+                    if (unreceivedItems.length > 0) {
+                        panelFooter.innerHTML = `<button class="report-issue-btn"><i class="fab fa-whatsapp"></i> I didn't receive my items</button>`;
+                    } else if (purchasedItems.length > 0) {
+                        panelFooter.innerHTML = `<p class="empty-list-msg">All items have been marked as received.</p>`;
+                    }
+                }
             }
 
             function openPanel(type) {
-                const titleKey = type === 'wishlist' ? 'Your Wishlist' : 'Your Cart';
+                let titleKey = 'Your Items';
+                if (type === 'wishlist') {
+                    titleKey = 'Your Wishlist';
+                } else if (type === 'cart') {
+                    titleKey = 'Your Cart';
+                } else if (type === 'history') {
+                    titleKey = 'Purchase History';
+                }
                 // We can add translation for the title later if needed
                 panelTitle.textContent = titleKey;
                 renderPanelContent(type);
@@ -1959,29 +2545,30 @@
                 document.body.style.overflow = '';
             }
 
-            // Event listener for removing items from the panel
-            panelContent.addEventListener('click', function(event) {
-                if (event.target.classList.contains('remove-item-btn')) {
-                    const itemElement = event.target.closest('.panel-item');
+            // Event listener for actions within the side panel
+            panel.addEventListener('click', function(event) {
+                const target = event.target;
+
+                // Handle removing items from wishlist or cart
+                if (target.classList.contains('remove-item-btn')) {
+                    const itemElement = target.closest('.panel-item');
                     const productId = itemElement.dataset.productId;
-                    const type = event.target.dataset.type;
+                    const type = target.dataset.type;
 
                     if (type === 'wishlist') {
                         wishlistItems = wishlistItems.filter(item => item.id !== productId);
                         showToast('Removed from your wishlist.');
-                        // Update the heart icon on the product card
                         const productCard = document.querySelector(`.product-card[data-product-id="${productId}"]`);
                         if (productCard) {
                             const wishlistButton = productCard.querySelector('.product-actions a[title*="Wishlist"]');
                             if (wishlistButton) {
                                 wishlistButton.classList.remove('active');
-                                wishlistButton.innerHTML = '&#x2661;'; // Outline Heart
+                                wishlistButton.innerHTML = '&#x2661;';
                             }
                         }
-                    } else {
+                    } else if (type === 'cart') {
                         cartItems = cartItems.filter(item => item.id !== productId);
                         showToast('Removed from your cart.');
-                        // Update the icon on the product card
                         const productCard = document.querySelector(`.product-card[data-product-id="${productId}"]`);
                         if (productCard) {
                             const cartButton = productCard.querySelector('.product-actions a[title*="Cart"]');
@@ -1989,9 +2576,35 @@
                                 cartButton.classList.remove('active');
                             }
                         }
+                        updateCartBadge();
                     }
+                    renderPanelContent(type);
+                }
 
-                    renderPanelContent(type); // Re-render the panel
+                // Handle marking an item as received
+                if (target.classList.contains('mark-received-btn')) {
+                    const productId = target.dataset.productId;
+                    const itemIndex = purchasedItems.findIndex(item => item.id === productId);
+                    if (itemIndex > -1) {
+                        purchasedItems[itemIndex].received = true;
+                        if (typeof(Storage) !== "undefined") {
+                            localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems));
+                        }
+                        renderPanelContent('history');
+                        showToast('Item marked as received!');
+                    }
+                }
+
+                // Handle "Report Issue" button
+                if (target.closest('.report-issue-btn')) {
+                    const unreceivedItems = purchasedItems.filter(item => !item.received);
+                    if (unreceivedItems.length > 0) {
+                        const phoneNumber = '60172878786';
+                        const itemsList = unreceivedItems.map((item, index) => `${index + 1}. ${item.name}`).join('\n');
+                        const message = `Hello, I have not received the following items from my order:\n\n${itemsList}`;
+                        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                        window.open(whatsappUrl, '_blank');
+                    }
                 }
             });
 
@@ -2006,6 +2619,13 @@
                 cartBtn.addEventListener('click', function(event) {
                     event.preventDefault();
                     openPanel('cart');
+                });
+            }
+
+            if (historyBtn) {
+                historyBtn.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openPanel('history');
                 });
             }
 
@@ -2027,7 +2647,7 @@
         function initializeImagePreviews() {
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("modalImage");
-            const closeModal = document.querySelector(".close-modal");
+            const closeModal = document.querySelector(".close");
 
             if (!modal || !modalImg || !closeModal) {
                 console.error("Image preview modal elements not found!");
@@ -2044,12 +2664,15 @@
                 }
 
                 const imageContainer = target.closest('.product-image-container');
-                const profilePhoto = target.closest('#profilePhoto');
+                const profilePhoto = target.closest('#headerProfilePic');
+                const footerProfilePic = target.closest('#footerProfilePic');
 
                 let imgSrc = null;
 
                 if (profilePhoto) {
                     imgSrc = profilePhoto.src;
+                } else if (footerProfilePic) {
+                    imgSrc = footerProfilePic.src;
                 } else if (imageContainer) {
                     // For product images, find the image inside the container
                     const img = imageContainer.querySelector('img');
@@ -2059,7 +2682,7 @@
                 }
 
                 if (imgSrc) {
-                    modal.style.display = "block";
+                    modal.style.display = "flex";
                     modalImg.src = imgSrc;
                 }
             });
@@ -2075,6 +2698,119 @@
                     modal.style.display = "none";
                 }
             }
+        }
+
+        function initializePaymentModal() {
+            const paymentModal = document.getElementById('payment-modal');
+            const closePaymentModalBtn = document.getElementById('close-payment-modal');
+            const doneBtn = document.getElementById('done-btn');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const thankYouModal = document.getElementById('thank-you-modal');
+            const closeThankYouModalBtn = document.getElementById('close-thank-you-modal');
+
+            if (!paymentModal || !closePaymentModalBtn || !doneBtn || !whatsappBtn || !thankYouModal || !closeThankYouModalBtn) {
+                // This is expected if the elements haven't been added yet.
+                return;
+            }
+
+            const closePaymentModal = () => {
+                paymentModal.style.display = 'none';
+                clearInterval(paymentTimerInterval); // Stop the timer when modal is closed
+            };
+
+            const openThankYouModal = () => {
+                thankYouModal.style.display = 'flex';
+            };
+
+            const closeThankYouModal = () => {
+                thankYouModal.style.display = 'none';
+            };
+
+            closePaymentModalBtn.addEventListener('click', closePaymentModal);
+
+            doneBtn.addEventListener('click', () => {
+                // --- Post-Purchase Actions ---
+                // 1. Mark purchased items as sold on the main page
+                markItemsAsSold(cartItems);
+
+                // 2. Add items to purchase history with 'received' status
+                const newPurchases = cartItems.map(item => ({ ...item, received: false }));
+                purchasedItems.push(...newPurchases);
+                if (typeof(Storage) !== "undefined") {
+                    localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems));
+                }
+
+                // 3. Clear the cart data
+                cartItems = [];
+
+                // 4. Update the cart quantity badge in the header
+                updateCartBadge();
+
+                // 5. Close the payment modal and show the thank you message
+                closePaymentModal();
+                openThankYouModal();
+            });
+
+            whatsappBtn.addEventListener('click', () => {
+                const phoneNumber = '60172878786';
+                const lang = document.documentElement.lang;
+
+                const cartTotalElement = document.querySelector('#cart-total');
+                const total = cartTotalElement ? cartTotalElement.textContent : '';
+                const items = cartItems.map((item, index) => `${index + 1}. ${item.name}`).join('\n');
+
+                let messageHeader = '';
+                let itemsHeader = '';
+                let totalHeader = '';
+                let receiptFooter = '';
+                let shippingDetails = '';
+                let shippingHeader = '';
+
+                if (lang === 'zh') {
+                    messageHeader = '你好，我已完成订单付款。';
+                    itemsHeader = '订单项目:';
+                    totalHeader = '总计:';
+                    receiptFooter = '这是我的收据。';
+                    shippingHeader = '\n\n送货详情:';
+                } else if (lang === 'ms') {
+                    messageHeader = 'Hello, saya telah selesaikan bayaran untuk pesanan saya.';
+                    itemsHeader = 'Item:';
+                    totalHeader = 'Jumlah:';
+                    receiptFooter = 'Ini resitnya.';
+                    shippingHeader = '\n\nButiran Penghantaran:';
+                } else {
+                    messageHeader = 'Hello, I have completed the payment for my order.';
+                    itemsHeader = 'Items:';
+                    totalHeader = 'Total:';
+                    receiptFooter = 'Here is the receipt.';
+                    shippingHeader = '\n\nShipping Details:';
+                }
+
+                if (customerDetails.name) {
+                    const city = customerDetails.city;
+                    const state = customerDetails.state;
+
+                    const locationString = (city && state && city.toLowerCase() === state.toLowerCase()) 
+                        ? `${customerDetails.postcode} ${city}`
+                        : `${customerDetails.postcode} ${city}, ${state}`;
+
+                    shippingDetails = `${shippingHeader}\n` +
+                                    `Name: ${customerDetails.name}\n` +
+                                    `Phone: ${customerDetails.phone}\n` +
+                                    `Address: ${customerDetails.address1}${customerDetails.address2 ? ', ' + customerDetails.address2 : ''}, ${locationString}, ${customerDetails.country}`;
+                }
+
+                const fullMessage = `${messageHeader}\n\n${itemsHeader}\n${items}\n\n${totalHeader} ${total}${shippingDetails}\n\n${receiptFooter}`;
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(fullMessage)}`;
+                window.open(whatsappUrl, '_blank');
+            });
+
+            // Make the entire thank you modal clickable to close, except for the button
+            thankYouModal.addEventListener('click', (e) => {
+                if (e.target.id === 'thank-you-modal' || e.target.id === 'close-thank-you-modal') {
+                    closeThankYouModal();
+                }
+            });
         }
 
         /**
@@ -2112,7 +2848,7 @@
                 }
             });
         }
-
+ 
         function initializeImageGalleries() {
             document.querySelectorAll('.clickable-gallery').forEach(gallery => {
                 const img = gallery.querySelector('img');
@@ -2164,6 +2900,7 @@
             const closeBtn = checkoutModal.querySelector('.close-btn');
             const confirmBtn = document.getElementById('confirm-purchase-btn');
             const summaryBody = document.getElementById('checkout-summary');
+            const customerDetailsModal = document.getElementById('customer-details-modal');
 
             document.body.addEventListener('click', (event) => {
                 if (event.target.id === 'checkout-btn') {
@@ -2195,17 +2932,15 @@
                 // Close the checkout summary modal
                 closeModal();
 
-                // Get total from cart panel and set it in payment modal
-                const cartTotalElement = document.querySelector('#cart-total');
-                const paymentTotalSummary = document.getElementById('payment-total-summary');
-                if (cartTotalElement && paymentTotalSummary) {
-                    paymentTotalSummary.textContent = cartTotalElement.textContent;
+                // Open the customer details modal instead of the payment modal
+                if (customerDetailsModal) {
+                    customerDetailsModal.style.display = 'flex';
                 }
 
-                // Open the payment options modal
-                const paymentModal = document.getElementById('payment-modal');
-                if (paymentModal) {
-                    paymentModal.style.display = 'flex';
+                // Also close the side panel if it's open
+                const sidePanel = document.getElementById('side-panel');
+                if (sidePanel && sidePanel.classList.contains('open')) {
+                    sidePanel.querySelector('.close-panel-btn').click();
                 }
             });
 
@@ -2226,6 +2961,64 @@
             const paymentOptions = document.querySelector('.payment-options');
             const payNowBtn = document.getElementById('pay-now-btn');
             const expiryYearSelect = document.getElementById('expiry-year');
+
+            // New: Handle the customer details form
+            const detailsModal = document.getElementById('customer-details-modal');
+            const detailsForm = document.getElementById('customer-details-form');
+            const closeDetailsModalBtn = document.getElementById('close-customer-details-modal');
+
+            if (detailsForm) {
+                detailsForm.addEventListener('submit', (event) => {
+                    event.preventDefault(); // Prevent form from submitting the traditional way
+
+                    // Here you can save the customer details if needed
+                    // Store customer details globally
+                    customerDetails = {
+                        name: detailsForm.elements.name.value,
+                        phone: `+60${detailsForm.elements.phone.value}`,
+                        address1: detailsForm.elements['address-line1'].value,
+                        address2: detailsForm.elements['address-line2'].value,
+                        city: detailsForm.elements.city.value,
+                        state: detailsForm.elements.state.value,
+                        postcode: detailsForm.elements.postcode.value,
+                        country: detailsForm.elements.country.value
+                    };
+
+                    // Close the details modal
+                    if (detailsModal) {
+                        detailsModal.style.display = 'none';
+                    }
+
+                    // Now, open the actual payment modal
+                    const cartTotalElement = document.querySelector('#cart-total');
+                    const paymentTotalSummary = document.getElementById('payment-total-summary');
+                    if (cartTotalElement && paymentTotalSummary) {
+                        paymentTotalSummary.textContent = cartTotalElement.textContent;
+                    }
+
+                    const paymentModal = document.getElementById('payment-modal');
+                    if (paymentModal) {
+                        paymentModal.style.display = 'flex';
+                        startPaymentTimer(); // Start the timer
+                    }
+
+                    // Also close the side panel if it's open
+                    const sidePanel = document.getElementById('side-panel');
+                    if (sidePanel && sidePanel.classList.contains('open')) {
+                        sidePanel.querySelector('.close-panel-btn').click();
+                    }
+                });
+            }
+
+            if (closeDetailsModalBtn) {
+                closeDetailsModalBtn.addEventListener('click', () => {
+                    if (detailsModal) {
+                        detailsModal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Populate expiry year dropdown
 
             // Populate expiry year dropdown
         if (expiryYearSelect) {
@@ -2256,8 +3049,105 @@
             };
 
             closePaymentModalBtn.addEventListener('click', closePaymentModal);
+
+            const doneBtn = document.getElementById('done-btn');
+            if (doneBtn) {
+                doneBtn.addEventListener('click', closePaymentModal);
+            }
+
             closeThankYouModalBtn.addEventListener('click', closeThankYouModal);
             closeCreditCardModalBtn.addEventListener('click', closeCreditCardModal);
+
+        // Event delegation for all actions within the side panel
+        document.querySelector('.side-panel').addEventListener('click', (event) => {
+            // Handle removing items from wishlist or cart
+            if (event.target.classList.contains('remove-item-btn')) {
+                const productId = event.target.closest('.panel-item').dataset.productId;
+                const type = event.target.dataset.type;
+
+                if (type === 'wishlist') {
+                    wishlistItems = wishlistItems.filter(item => item.id !== productId);
+                    localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+                    renderPanelContent('wishlist');
+                } else if (type === 'cart') {
+                    cartItems = cartItems.filter(item => item.id !== productId);
+                    renderPanelContent('cart');
+                    updateCartBadge();
+                }
+            }
+
+            // Handle "I didn't receive my items" button click
+            if (event.target.classList.contains('report-issue-btn')) {
+                const purchaseId = event.target.dataset.purchaseId;
+                const purchase = purchasedItems.find(p => p.id === purchaseId);
+
+                if (purchase) {
+                    const itemNames = purchase.items.map(item => item.name).join(',\n- ');
+                    const phoneNumber = '60172878786';
+                    const message = `Hi, I have an issue with my order. I have not received the following items:\n\n- ${itemNames}`;
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                }
+            }
+        });
+
+
+            closeThankYouModalBtn.addEventListener('click', closeThankYouModal);
+            closeCreditCardModalBtn.addEventListener('click', closeCreditCardModal);
+
+            // QR Code Preview Logic
+            const qrPreviewModal = document.getElementById('qr-preview-modal');
+            const qrPreviewImage = document.getElementById('qr-preview-image');
+            const qrCodeClickable = document.getElementById('qr-code-clickable');
+            const closeQrPreviewBtn = document.getElementById('close-qr-preview');
+
+            const openQrPreviewModal = () => {
+                if (qrPreviewModal) qrPreviewModal.style.display = 'flex';
+                if (qrPreviewImage && qrCodeClickable && qrCodeClickable.querySelector('img')) {
+                    qrPreviewImage.src = qrCodeClickable.querySelector('img').src;
+                }
+            };
+
+            const closeQrPreviewModal = () => {
+                if (qrPreviewModal) qrPreviewModal.style.display = 'none';
+            };
+
+            // --- Event Listeners ---
+
+            // 1. Open the preview when the small QR code is clicked
+            if (qrCodeClickable) {
+                qrCodeClickable.addEventListener('click', (e) => {
+                    e.preventDefault(); // Stop the link from navigating
+                    e.stopPropagation(); // Stop this click from affecting other elements
+                    openQrPreviewModal();
+                });
+            }
+
+            // 2. Close the preview when the 'x' button is clicked
+            if (closeQrPreviewBtn) {
+                closeQrPreviewBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Isolate this click
+                    closeQrPreviewModal();
+                });
+            }
+
+            // 3. Close the preview when the enlarged image is clicked
+            if (qrPreviewImage) {
+                qrPreviewImage.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Isolate this click
+                    closeQrPreviewModal();
+                });
+            }
+
+            // 4. Close the preview when the dark background is clicked
+            if (qrPreviewModal) {
+                qrPreviewModal.addEventListener('click', (e) => {
+                    // Only close if the click is on the background itself, not a child element
+                    if (e.target === qrPreviewModal) {
+                        closeQrPreviewModal();
+                    }
+                });
+            }
 
             const handleSuccessfulPayment = () => {
                 // Mark all items in cart as sold
@@ -2312,6 +3202,17 @@
 
         // This is the main trigger that runs everything when the page loads.
         document.addEventListener('DOMContentLoaded', () => {
+            if (typeof(Storage) !== "undefined") {
+                // Clear purchase history on refresh to ensure a clean state as requested.
+                localStorage.removeItem('purchasedItems');
+
+                // Load Purchase History and mark items as sold
+                const savedPurchased = localStorage.getItem('purchasedItems');
+                if (savedPurchased) {
+                    purchasedItems = JSON.parse(savedPurchased);
+                    markItemsAsSold(purchasedItems);
+                }
+            }
             // Home Slideshow
             const homeSlides = document.querySelectorAll('#home-slideshow .slide');
             if (homeSlides.length > 0) {
@@ -2343,6 +3244,7 @@
             initializeScrollAnimations();
             initializeCheckout();
             initializePaymentFlow();
+            initializePaymentModal();
 
             // Dropdown menu logic
             const dropdown = document.querySelector('.dropdown');
@@ -2380,6 +3282,7 @@
                     cheongsam: allCards.filter(p => p.dataset.category === 'cheongsam').length,
                     tops: allCards.filter(p => p.dataset.category === 'tops').length,
                     bottoms: allCards.filter(p => p.dataset.category === 'bottoms').length,
+                    'dress/skirt': allCards.filter(p => p.dataset.category === 'dress').length,
                     sport: allCards.filter(p => p.dataset.category === 'sport').length
                 };
 
@@ -2395,7 +3298,7 @@
 
             function filterProducts(filter) {
                 productCards.forEach(card => {
-                    if (filter === 'all' || card.dataset.category === filter) {
+                    if (filter === 'all' || card.dataset.category === filter || (filter === 'dress/skirt' && card.dataset.category === 'dress')) {
                         card.style.display = 'block';
                     } else {
                         card.style.display = 'none';
@@ -2445,31 +3348,34 @@
             setInterval(() => {
                 currentHomeSlide = (currentHomeSlide + 1) % homeSlides.length;
                 showHomeSlide(currentHomeSlide);
-            }, 5000); // Change image every 5 seconds
+            }, 5000); // Change image every 2 seconds
         }
 
     });
 
     </script>
 <!-- Footer -->
-<footer class="site-footer">
+<footer class="site-footer" style="background-color: var(--header-bg) !important; color: #8B4513 !important;">
     <div class="footer-container">
         <div class="footer-column footer-about">
-            <h4 class="logo-text">Winnie Finds</h4>
-            <p data-en="Discover unique, pre-loved fashion and join our movement towards sustainable style." data-zh="发现独特的二手时尚，加入我们的可持续风格运动。" data-ms="Temui fesyen terpakai yang unik dan sertai gerakan kami ke arah gaya lestari.">Discover unique, pre-loved fashion and join our movement towards sustainable style.</p>
+            <div style="display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; margin-top: 15px;">
+                <img src="images/SHOP SECOND HAND.jpg" alt="Winnie Finds" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" id="footerProfilePic">
+                <div class="logo-text" style="margin-bottom: 0; text-align: center; line-height: 1; color: #8B4513;">Winnie<br>Finds</div>
+            </div>
+            <p data-en="Discover unique, pre-loved fashion<br>and join our movement towards sustainable style." data-zh="发现独特的二手时尚，<br>加入我们的可持续风格运动。" data-ms="Temui fesyen terpakai yang unik<br>dan sertai gerakan kami ke arah gaya lestari.">Discover unique, pre-loved fashion<br>and join our movement towards sustainable style.</p>
         </div>
 
         <div class="footer-column footer-links">
-            <h4 data-en="Quick Links" data-zh="快速链接" data-ms="Pautan Pantas">Quick Links</h4>
+            <h4 data-en="Quick Links" data-zh="快速链接" data-ms="Pautan Pantas" style="color: #8B4513 !important;">Quick Links</h4>
             <ul>
                 <li><a href="#home" data-en="Home" data-zh="首页" data-ms="Laman Utama">Home</a></li>
                 <li><a href="#about" data-en="About" data-zh="关于我们" data-ms="Tentang Kami">About</a></li>
-                <li><a href="#featured" data-en="Featured Finds" data-zh="精选发现" data-ms="Pilihan Istimewa">Featured Finds</a></li>
+                <li><a href="#services" data-en="Featured Finds" data-zh="精选发现" data-ms="Pilihan Istimewa">Featured Finds</a></li>
             </ul>
         </div>
 
         <div class="footer-column footer-contact">
-            <h4 data-en="Contact Info" data-zh="联系信息" data-ms="Maklumat Hubungan">Contact Info</h4>
+            <h4 data-en="Contact Info" data-zh="联系信息" data-ms="Maklumat Hubungan" style="color: #8B4513 !important;">Contact Info</h4>
             <ul>
                 <li><i class="fas fa-envelope"></i><a href="mailto:yijin100299@gmail.com">yijin100299@gmail.com</a></li>
                 <li><i class="fas fa-phone"></i>+60172878786 (Ms.Jin)</li>
@@ -2477,15 +3383,15 @@
         </div>
 
         <div class="footer-column footer-social">
-            <h4 data-en="Follow Us" data-zh="关注我们" data-ms="Ikuti Kami">Follow Us</h4>
+            <h4 data-en="Follow Us" data-zh="关注我们" data-ms="Ikuti Kami" style="color: #8B4513 !important;">Follow Us</h4>
             <ul>
-                <li><a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="https://www.facebook.com/share/1AgZetELPm/?mibextid=wwXIfr" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://www.instagram.com/_.jinnnnn/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; 2024 Winnie Finds. All Rights Reserved.</p>
+        <p>&copy; 2026 Winnie Finds. All Rights Reserved.</p>
     </div>
 </footer>
 
