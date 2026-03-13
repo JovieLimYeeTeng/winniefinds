@@ -1890,7 +1890,7 @@
                         <img src="images/小香风毛衣外套2.jpeg" alt="小香风毛衣外套">
                         <div class="product-actions">
                             <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
-                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-shopping-cart"></i></a>   <!-- Shopping Cart Icon -->
                         </div>
                     </div>
                     <h3 data-en="Xiaoxiangfeng Sweater Jacket" data-zh="小香风毛衣外套" data-ms="Jaket Sweater Xiaoxiangfeng">小香风毛衣外套</h3>
@@ -1910,7 +1910,7 @@
                         <img src="images/SHEIN 蓝色L斜露肩连衣裙.jpeg" alt="SHEIN 蓝色L斜露肩连衣裙">
                         <div class="product-actions">
                             <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
-                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-shopping-cart"></i></a>   <!-- Shopping Cart Icon -->
                         </div>
                     </div>
                     <h3 data-en="SHEIN Blue Off-Shoulder Dress" data-zh="SHEIN 蓝色L斜露肩连衣裙" data-ms="Gaun Bahu Terbuka Biru SHEIN">SHEIN 蓝色L斜露肩连衣裙</h3>
@@ -1930,7 +1930,7 @@
                         <img src="images/SHEIN 性感时尚蓝色斜露肩.jpeg" alt="SHEIN 性感时尚蓝色斜露肩">
                         <div class="product-actions">
                             <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
-                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-shopping-cart"></i></a>   <!-- Shopping Cart Icon -->
                         </div>
                     </div>
                     <h3 data-en="SHEIN Sexy Blue Off-Shoulder" data-zh="SHEIN 性感时尚蓝色斜露肩" data-ms="SHEIN Seksi Biru Bahu Terbuka">SHEIN 性感时尚蓝色斜露肩</h3>
@@ -1952,7 +1952,7 @@
                         <button class="arrow right">&#10095;</button>
                         <div class="product-actions">
                             <a href="#" title="Add to Wishlist">&#x2661;</a> <!-- Heart Icon -->
-                            <a href="#" title="Add to Cart" class="cart-button">&#x1F6D2;</a>   <!-- Shopping Cart Icon -->
+                            <a href="#" title="Add to Cart" class="cart-button"><i class="fas fa-shopping-cart"></i></a>   <!-- Shopping Cart Icon -->
                         </div>
                     </div>
                     <h3 data-en="MOVING PEACH Yoga Crop Top" data-zh="MOVING PEACH 瑜伽短款上衣" data-ms="MOVING PEACH Yoga Crop Top">MOVING PEACH Yoga Crop Top</h3>
@@ -2398,31 +2398,32 @@
             // We are keeping the function here in case we want to add other header actions later.
         }
 
-        /**
-         * Marks items from the cart as sold out on the main product page.
-         * @param {Array} soldItems - An array of item objects that were in the cart.
-         */
-        function markItemsAsSold(soldItems) {
-            soldItems.forEach(item => {
-                const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
-                if (productCard) {
-                    // Add the 'sold-out' class to apply the new styles
-                    productCard.classList.add('sold-out');
+        function updateSoldOutStatus(productId, isSold) {
+            let soldOutItems = JSON.parse(localStorage.getItem('soldOutItems')) || [];
+            if (isSold) {
+                if (!soldOutItems.includes(productId)) {
+                    soldOutItems.push(productId);
+                }
+            } else {
+                soldOutItems = soldOutItems.filter(id => id !== productId);
+            }
+            localStorage.setItem('soldOutItems', JSON.stringify(soldOutItems));
+        }
 
-                    // Find the image container
-                    const imageContainer = productCard.querySelector('.product-image-container');
-                    // Check if the button already exists to prevent duplicates
-                    if (imageContainer && !imageContainer.querySelector('.sold-out-button')) {
-                        // Create the new "Out of Stock" button element
-                        const button = document.createElement('div');
-                        button.classList.add('sold-out-button');
-                        button.textContent = 'Out of Stock';
-                        // Add the button to the image container
-                        imageContainer.appendChild(button);
-                    }
+        function applySoldOutOverlays() {
+            const soldOutItems = JSON.parse(localStorage.getItem('soldOutItems')) || [];
+            soldOutItems.forEach(productId => {
+                const productCard = document.querySelector(`.product-card[data-product-id='${productId}']`);
+                if (productCard) {
+                    productCard.classList.add('sold-out');
+                    productCard.classList.add('is-sold');
                 }
             });
         }
+
+
+
+
 
         /**
          * Initializes the side panel for wishlist and cart.
@@ -2720,6 +2721,10 @@
 
             const openThankYouModal = () => {
                 thankYouModal.style.display = 'flex';
+                // Optionally, close thank you modal after a few seconds
+                setTimeout(() => {
+                    closeThankYouModal();
+                }, 3000);
             };
 
             const closeThankYouModal = () => {
@@ -2728,16 +2733,29 @@
 
             closePaymentModalBtn.addEventListener('click', closePaymentModal);
 
-            doneBtn.addEventListener('click', () => {
-                // --- Post-Purchase Actions ---
-                // 1. Mark purchased items as sold on the main page
-                markItemsAsSold(cartItems);
+            const handleSuccessfulPayment = () => {
+                // 1. Mark purchased items as sold and update their status permanently
+                cartItems.forEach(item => {
+                    const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
+                    if (productCard) {
+                        productCard.classList.add('sold-out');
+                        productCard.classList.add('is-sold');
+                        updateSoldOutStatus(item.id, true); // Save status permanently
+                    }
+                });
 
-                // 2. Add items to purchase history with 'received' status
-                const newPurchases = cartItems.map(item => ({ ...item, received: false }));
-                purchasedItems.push(...newPurchases);
-                if (typeof(Storage) !== "undefined") {
-                    localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems));
+                // 2. Add items to purchase history as a single transaction
+                if (cartItems.length > 0) {
+                    const newPurchase = {
+                        id: `p-${Date.now()}`,
+                        date: new Date().toLocaleDateString(),
+                        items: [...cartItems],
+                        received: false
+                    };
+                    purchasedItems.push(newPurchase);
+                    if (typeof(Storage) !== "undefined") {
+                        localStorage.setItem('purchasedItems', JSON.stringify(purchasedItems));
+                    }
                 }
 
                 // 3. Clear the cart data
@@ -2749,7 +2767,9 @@
                 // 5. Close the payment modal and show the thank you message
                 closePaymentModal();
                 openThankYouModal();
-            });
+            };
+
+            doneBtn.addEventListener('click', handleSuccessfulPayment);
 
             whatsappBtn.addEventListener('click', () => {
                 const phoneNumber = '60172878786';
@@ -3050,10 +3070,7 @@
 
             closePaymentModalBtn.addEventListener('click', closePaymentModal);
 
-            const doneBtn = document.getElementById('done-btn');
-            if (doneBtn) {
-                doneBtn.addEventListener('click', closePaymentModal);
-            }
+
 
             closeThankYouModalBtn.addEventListener('click', closeThankYouModal);
             closeCreditCardModalBtn.addEventListener('click', closeCreditCardModal);
@@ -3149,40 +3166,7 @@
                 });
             }
 
-            const handleSuccessfulPayment = () => {
-                // Mark all items in cart as sold
-                cartItems.forEach(item => {
-                    if (!soldItems.includes(item.id)) {
-                        soldItems.push(item.id);
-                    }
-                    const productCard = document.querySelector(`.product-card[data-product-id="${item.id}"]`);
-                    if (productCard) {
-                        productCard.classList.add('is-sold');
-                    }
-                });
 
-                // Clear the cart
-                cartItems = [];
-
-                // Close all modals
-                closePaymentModal();
-                closeCreditCardModal();
-                
-                // Also close the side panel
-                const sidePanel = document.getElementById('side-panel');
-                if (sidePanel && sidePanel.classList.contains('open')) {
-                    sidePanel.querySelector('.close-panel-btn').click();
-                }
-
-                // Show thank you modal which replaces the toast for purchase confirmation
-                thankYouModal.style.display = 'flex';
-                showToast('Thank you for your purchase!');
-
-                // Optionally, close thank you modal after a few seconds
-                setTimeout(() => {
-                    closeThankYouModal();
-                }, 3000);
-            };
 
             // Event listeners for old payment buttons (credit card, PayPal) are removed.
             // The new flow displays a QR code and relies on the user to pay and close the modal.
@@ -3203,14 +3187,10 @@
         // This is the main trigger that runs everything when the page loads.
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof(Storage) !== "undefined") {
-                // Clear purchase history on refresh to ensure a clean state as requested.
-                localStorage.removeItem('purchasedItems');
-
-                // Load Purchase History and mark items as sold
+                // Load Purchase History
                 const savedPurchased = localStorage.getItem('purchasedItems');
                 if (savedPurchased) {
                     purchasedItems = JSON.parse(savedPurchased);
-                    markItemsAsSold(purchasedItems);
                 }
             }
             // Home Slideshow
@@ -3245,6 +3225,8 @@
             initializeCheckout();
             initializePaymentFlow();
             initializePaymentModal();
+            applySoldOutOverlays(); // Apply sold-out overlays on page load
+            //applySoldOutOverlays(); // Apply sold-out overlays on page load
 
             // Dropdown menu logic
             const dropdown = document.querySelector('.dropdown');
