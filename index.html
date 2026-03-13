@@ -241,24 +241,82 @@
             max-width: 100%;
         }
 
-        @media (max-width: 768px) {
+        /* Styles for the smart, hiding mobile header */
+       @media (max-width: 768px) {
     /* This stacks the header vertically on mobile */
     header {
         flex-direction: column;
         align-items: center;
         padding: 1rem;
+        /* Add transition for smooth sliding */
+        transition: top 0.4s ease, padding 0.4s ease;
     }
 
-    /* This centers the navigation items and allows them to wrap */
+    /* This allows the menu items to wrap */
     nav {
         margin-top: 1rem;
         justify-content: center;
         flex-wrap: wrap;
     }
 
-    /* This was the only style you had before */
+    /* This sets the body font size for mobile */
     body {
         font-size: 16px;
+    }
+
+    /* This class hides the header by moving it off-screen */
+    header.is-hidden {
+        top: -150px; /* Moves header completely out of view */
+    }
+
+    /* This class styles the SMALL header (scrolled but not at top) */
+    header.is-scrolled {
+        justify-content: center; /* Center the logo */
+        padding: 0.5rem 1rem; /* Make the header smaller */
+    }
+
+    /* Hide other elements for the SMALL header */
+    header.is-scrolled nav,
+    header.is-scrolled .language-selector {
+        display: none;
+    }
+}@media (max-width: 768px) {
+    /* This stacks the header vertically on mobile */
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        /* Add transition for smooth sliding */
+        transition: top 0.4s ease, padding 0.4s ease;
+    }
+
+    /* This allows the menu items to wrap */
+    nav {
+        margin-top: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* This was the original style for the body */
+    body {
+        font-size: 16px;
+    }
+
+    /* This class hides the header by moving it off-screen */
+    header.is-hidden {
+        top: -150px; /* Moves header completely out of view */
+    }
+
+    /* This class styles the SMALL header (scrolled but not at top) */
+    header.is-scrolled {
+        justify-content: center; /* Center the logo */
+        padding: 0.5rem 1rem; /* Make the header smaller */
+    }
+
+    /* Hide other elements for the SMALL header */
+    header.is-scrolled nav,
+    header.is-scrolled .language-selector {
+        display: none;
     }
 }
 
@@ -3398,6 +3456,34 @@
         <p>&copy; 2026 Winnie Finds. All Rights Reserved.</p>
     </div>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('header');
+    let lastScrollY = window.scrollY;
 
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        // This part handles the small vs full menu
+        if (currentScrollY > 0) {
+            header.classList.add('is-scrolled');
+        } else {
+            header.classList.remove('is-scrolled');
+        }
+
+        // This part handles hiding on scroll down and showing on scroll up
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling DOWN
+            header.classList.add('is-hidden');
+        } else {
+            // Scrolling UP
+            header.classList.remove('is-hidden');
+        }
+
+        // Update the last scroll position for the next event
+        lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+    });
+});
+</script>
 </body>
 </html>
